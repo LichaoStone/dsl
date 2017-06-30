@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inspur.publicutils.sql.PublicUtilsMapper">
+   <!-- *******************************日志主表********************************************** -->
+    <insert id="insertMsgRecode" parameterType="map">
+    INSERT INTO 
+        DSL_MSG
+        (
+        MSG_ID,
+        MSG_TYPE,
+        MSG_ACTION,
+        MSG_CREATE_TIME,
+        MSG_SATUS,
+        SERVICE_CLASS,
+        SERVICE_PARA
+        )
+    VALUES
+        (
+        #{MSG_ID,jdbcType=VARCHAR},
+        #{MSG_TYPE,jdbcType=VARCHAR},
+        #{MSG_ACTION,jdbcType=VARCHAR},
+        #{MSG_CREATE_TIME,jdbcType=VARCHAR},
+        #{MSG_SATUS,jdbcType=VARCHAR},
+        #{SERVICE_CLASS,jdbcType=VARCHAR},
+        #{SERVICE_PARA,jdbcType=VARCHAR}
+        )
+    </insert>
+    <update id="updateMsgRecode" parameterType="map">
+	    UPDATE 
+	         DSL_MSG
+	    SET 
+	         MSG_SATUS=#{MSG_STATUS,jdbcType=VARCHAR}
+	         <if test="MSG_ACTION != null and !MSG_ACTION.equals('')">
+	         ,MSG_ACTION=#{MSG_ACTION,jdbcType=VARCHAR}
+	         </if>
+	   WHERE 
+	        MSG_ID=#{MSG_ID}
+    </update>
+    <delete id="deleteMsgRecode" parameterType="map">
+        DELETE FROM DSL_MSG WHERE MSG_ID=#{MSG_ID}
+    </delete>
+    
+ <!-- *******************************日志从表********************************************** -->   
+    <insert id="insertMsgParameterRecode" parameterType="map">
+        INSERT INTO 
+        DSL_MSG_PARAMETER
+        (
+        PARA_ID,
+        MSG_ID,
+        MSG_PARA_NAME,
+        MSG_PARA_VALUE
+        )
+    VALUES
+        (
+        #{PARA_ID,jdbcType=VARCHAR},
+        #{MSG_ID,jdbcType=VARCHAR},
+        #{MSG_PARA_NAME,jdbcType=VARCHAR},
+        #{MSG_PARA_VALUE,jdbcType=VARCHAR}
+        )
+    </insert>
+    <update id="updateMsgParameterRecode" parameterType="map">
+    </update>
+    <delete id="deleteMsgParameterRecode" parameterType="map">
+    DELETE FROM DSL_MSG_PARAMETER WHERE MSG_ID=#{MSG_ID}   
+    </delete>
+
+<!-- *******************************线程日志********************************************** -->       
+    <insert id="insertProcessLog" parameterType="map">
+		INSERT
+    INTO
+        DSL_PROCESS_LOG(
+            LOG_ID,
+            MSG_ID,
+            LOG_INFO,
+            LOG_CREATE_TIME,
+            LOG_RESULT,
+            PRO_NODE
+        )
+    VALUES(
+        #{LOG_ID,jdbcType=VARCHAR},
+        #{MSG_ID,jdbcType=VARCHAR},
+        #{LOG_INFO,jdbcType=VARCHAR},
+        #{LOG_CREATE_TIME,jdbcType=VARCHAR},
+        #{LOG_RESULT,jdbcType=VARCHAR},
+        #{PRO_NODE,jdbcType=VARCHAR}
+    )
+	</insert>
+	
+	<update id="updateProcessLog" parameterType="map">
+	
+	</update>
+	
+	<delete id="deleteProcessLog" parameterType="map">
+	
+	</delete>
+	
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="delploy" default="main" basedir="..">
+    <!-- ================================================================== -->
+    <!-- 初始化属性						                        			-->
+    <!-- ================================================================== -->
+    <target name="init-properties" description="初始化属性">
+    	<property name="app.path"        value="dsl"/>
+    	<property name="deploy.dir"        value="E:\apache-tomcat-7.0.6-dsl\webapps"/>
+    	<property name="deploy.webapp.dir" value="${deploy.dir}\\${app.path}" />
+    	
+    	
+    	<!-- 示例模块  -->
+    	<!--<property name="demo.name"        value="lambo_framework_release"/>-->
+    	<property name="demo.name"        value="dsl"/>
+    	<property name="demo.war.dir"        value="${basedir}\\${demo.name}\\WebContent"/>
+    	
+    </target>
+
+	<!--拷贝-->
+    <target name="copy" depends="init-properties" description="拷贝文件">
+
+    	<!-- 示例模块 -->
+    	<copy todir="${deploy.webapp.dir}" overwrite="true" preservelastmodified="true">
+    	    <fileset dir="${demo.war.dir}" includes="**" />
+    	</copy>
+  	</target>
+	
+	<!-- 删除文件 -->
+	<target name="clean" depends="init-properties" description="删除文件">
+		<echo message="开始删除文件:${deploy.webapp.dir}"/>
+		<delete includeEmptyDirs="true">
+			<fileset dir="${deploy.webapp.dir}" includes="**" />
+		</delete>
+		<echo message="结束删除文件:${deploy.webapp.dir}"/>
+	</target>
+	
+  <!-- ================================================================ -->
+  <!-- 主要任务                                                        -->
+  <!-- ================================================================ -->
+  <target name="main" description="==>发布程序,拷贝">
+
+  		<antcall target="clean"/>
+
+        <antcall target="copy"/>
+  	    
+  </target>
+</project>

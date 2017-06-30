@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://js-tobacco.com.cn/mdm/Position" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Position"
+	targetNamespace="http://js-tobacco.com.cn/mdm/Position">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://js-tobacco.com.cn/mdm/Position">
+			
+			<xsd:complexType name="RequestHeaderType">
+				<xsd:sequence>
+					<xsd:element name="Svc_ServiceCode" type="xsd:string" minOccurs="1" nillable="false"></xsd:element>
+					<xsd:element name="Svc_Version" type="xsd:string" nillable="true"></xsd:element>
+					<xsd:element name="Svc_RunningNumber" type="xsd:string" minOccurs="1" nillable="false"></xsd:element>
+					<xsd:element name="Svc_TranDate" type="xsd:date" nillable="true"></xsd:element>
+					<xsd:element name="Svc_TranTimeStamp" type="xsd:time" nillable="true"></xsd:element>
+					<xsd:element name="Svc_Org" type="xsd:string" nillable="true"></xsd:element>
+					<xsd:element name="Svc_UserName" type="xsd:string" nillable="true"></xsd:element>
+					<xsd:element name="Svc_Password" type="xsd:string" nillable="true"></xsd:element>
+					<xsd:element name="Svc_Inbound" type="xsd:string" minOccurs="1" nillable="false"></xsd:element>
+					<xsd:element name="Svc_Outbound" type="xsd:string" minOccurs="1" nillable="false"></xsd:element>
+					<xsd:element name="Svc_Timeout" type="xsd:string" nillable="true"></xsd:element>
+					<xsd:element name="Svc_ConId" type="xsd:string" nillable="true"></xsd:element>
+					<xsd:element name="Svc_ReplyServiceCode" type="xsd:string" nillable="true"></xsd:element>
+					<xsd:element name="Svc_ReplyVersion" type="xsd:string" nillable="true"></xsd:element>
+					<xsd:element name="Svc_FTP_Dir" type="xsd:string" nillable="true"></xsd:element>
+					<xsd:element name="Svc_FileList" type="xsd:string" nillable="true"></xsd:element>
+					<xsd:element name="Svc_Expansion1" type="xsd:string" nillable="true"></xsd:element>
+					<xsd:element name="Svc_Expansion2" type="xsd:string" nillable="true"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="ResponseHeaderType">
+				<xsd:sequence>
+					<xsd:element name="Svc_ResultCode" type="xsd:string" minOccurs="1" nillable="false"></xsd:element>
+					<xsd:element name="Svc_ResultMsg" type="xsd:string" nillable="true"></xsd:element>
+					<xsd:element name="Svc_TranDate" type="xsd:date" minOccurs="1" nillable="false"></xsd:element>
+					<xsd:element name="Svc_TranTimeStamp" type="xsd:time" minOccurs="1" nillable="false"></xsd:element>
+					<xsd:element name="Svc_OutboundRunningNumber" type="xsd:string" nillable="true"></xsd:element>					
+					<xsd:element name="Svc_ConId" type="xsd:string" nillable="true"></xsd:element>
+					<xsd:element name="Svc_FTP_Dir" type="xsd:string" nillable="true"></xsd:element>
+					<xsd:element name="Svc_FileList" type="xsd:string" nillable="true"></xsd:element>
+					<xsd:element name="Svc_Expansion1" type="xsd:string" nillable="true"></xsd:element>
+					<xsd:element name="Svc_Expansion2" type="xsd:string" nillable="true"></xsd:element>					
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="PositionType">
+				<xsd:sequence>		
+				 <xsd:element name="action" type="xsd:string" minOccurs="1" nillable="false"></xsd:element>						
+				 <xsd:element name="position_id" type="xsd:string" minOccurs="1" nillable="false"></xsd:element>
+				 <xsd:element name="emp_code" type="xsd:string" minOccurs="1" nillable="false"></xsd:element>
+				 <xsd:element name="appunit" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>
+				 <xsd:element name="posname" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>
+				 <xsd:element name="posdate" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>
+				 <xsd:element name="posatt" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>
+				 <xsd:element name="businesscurrently" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>
+				 <xsd:element name="posgrade" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>
+				 <xsd:element name="curgradate" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>
+				 <xsd:element name="dismanner" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>
+				 <xsd:element name="appsymbol" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>
+				 <xsd:element name="nextbusinessyear" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>
+				 <xsd:element name="syzt" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>				
+				 <xsd:element name="sykssj" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>
+				 <xsd:element name="syjssj" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>
+				 <xsd:element name="removedate" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>
+				 <xsd:element name="removetype" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>
+				 <xsd:element name="dissymbol" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>
+				 <xsd:element name="chatype" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>
+				 <xsd:element name="posdescribe" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>
+				 <xsd:element name="posno" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>
+				 <xsd:element name="iscompetition" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>
+				 <xsd:element name="remark" type="xsd:string" minOccurs="0" nillable="true"></xsd:element>
+				 <xsd:element name="status" type="xsd:string" minOccurs="1" nillable="false"></xsd:element>
+				 				 
+				</xsd:sequence>
+			</xsd:complexType>
+	
+			<xsd:complexType name="CommonResultType">
+				<xsd:sequence>
+					<xsd:element name="code" type="xsd:string" minOccurs="1" nillable="false"></xsd:element>
+					<xsd:element name="msg" type="xsd:string" minOccurs="1" nillable="true"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>		
+			
+			<xsd:element name="reqHeader" type="tns:RequestHeaderType"></xsd:element>
+			<xsd:element name="respHeader" type="tns:ResponseHeaderType"></xsd:element>
+		
+			<xsd:element name="handle">
+                <xsd:complexType>
+                    <xsd:sequence>
+                       <xsd:element maxOccurs="unbounded" minOccurs="1" name="position" type="tns:PositionType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="handleResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element  maxOccurs="unbounded" minOccurs="1" name="result" type="tns:CommonResultType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+		</xsd:schema>
+	</wsdl:types>
+	
+	<wsdl:message name="handleRequest">
+		<wsdl:part element="tns:handle" name="handleRequestBody" />		<wsdl:part name="requestHeader" element="tns:reqHeader"></wsdl:part>	</wsdl:message>
+
+	<wsdl:message name="handleResponse">
+		<wsdl:part element="tns:handleResponse" name="handleResponseBody" />
+		<wsdl:part name="responseHeader" element="tns:respHeader"></wsdl:part>
+	</wsdl:message>
+
+	
+	<wsdl:portType name="Position">
+		<wsdl:operation name="handle">
+			<wsdl:input message="tns:handleRequest" />
+			<wsdl:output message="tns:handleResponse" />
+		</wsdl:operation>		
+	</wsdl:portType>
+	<wsdl:binding name="PositionSOAP" type="tns:Position">
+
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="handle">
+
+			<soap:operation soapAction="urn:handle" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" parts="handleRequestBody"/>
+				<soap:header message="tns:handleRequest"
+					part="requestHeader" use="literal">
+				</soap:header>
+			</wsdl:input>
+			
+			<wsdl:output>
+				<soap:body use="literal" parts="handleResponseBody" />
+				<soap:header message="tns:handleResponse"
+					part="responseHeader" use="literal">
+				</soap:header>
+			</wsdl:output>
+		</wsdl:operation>	
+		
+	</wsdl:binding>
+	<wsdl:service name="Position">
+		<wsdl:port binding="tns:PositionSOAP" name="PositionSOAPEndpoint">
+			<soap:address location="http://js-tobacco.com.cn/mdm/Position" />
+		</wsdl:port>
+	</wsdl:service>		
+</wsdl:definitions>

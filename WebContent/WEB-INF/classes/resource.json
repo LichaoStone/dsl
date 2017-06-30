@@ -1,0 +1,24 @@
+[
+	{
+		id:'00001',
+		url:'/dsl/uc/user/new',
+		name:'用户新增按钮',
+		permit:'user1,user2'
+	
+	},
+	{
+		id:'00002',
+		url:'/dsl/uc/user/delete',
+		name:'用户删除按钮',
+		permit:'user1'
+	
+	},
+	{
+		id:'00004',
+		url:'/dsl/retrymq',
+		name:'MQ',
+		permit:'dsl'
+	
+	}
+]
+

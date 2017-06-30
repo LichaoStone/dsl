@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="Permit" targetNamespace="http://js-tobacco.com.cn/mdm/Permit" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://js-tobacco.com.cn/mdm/Permit" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://js-tobacco.com.cn/mdm/Permit">	
+			<xsd:complexType name="RequestHeaderType">
+				<xsd:sequence>
+					<xsd:element minOccurs="1" name="Svc_ServiceCode" nillable="false" type="xsd:string"/>
+					<xsd:element name="Svc_Version" nillable="true" type="xsd:string"/>
+					<xsd:element minOccurs="1" name="Svc_RunningNumber" nillable="false" type="xsd:string"/>
+					<xsd:element name="Svc_TranDate" nillable="true" type="xsd:date"/>
+					<xsd:element name="Svc_TranTimeStamp" nillable="true" type="xsd:time"/>
+					<xsd:element name="Svc_Org" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_UserName" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_Password" nillable="true" type="xsd:string"/>
+					<xsd:element minOccurs="1" name="Svc_Inbound" nillable="false" type="xsd:string"/>
+					<xsd:element minOccurs="1" name="Svc_Outbound" nillable="false" type="xsd:string"/>
+					<xsd:element name="Svc_Timeout" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_ConId" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_ReplyServiceCode" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_ReplyVersion" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_FTP_Dir" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_FileList" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_Expansion1" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_Expansion2" nillable="true" type="xsd:string"/>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="ResponseHeaderType">
+				<xsd:sequence>
+					<xsd:element minOccurs="1" name="Svc_ResultCode" nillable="false" type="xsd:string"/>
+					<xsd:element name="Svc_ResultMsg" nillable="true" type="xsd:string"/>
+					<xsd:element minOccurs="1" name="Svc_TranDate" nillable="false" type="xsd:date"/>
+					<xsd:element minOccurs="1" name="Svc_TranTimeStamp" nillable="false" type="xsd:time"/>
+					<xsd:element name="Svc_OutboundRunningNumber" nillable="true" type="xsd:string"/>					
+					<xsd:element name="Svc_ConId" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_FTP_Dir" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_FileList" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_Expansion1" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_Expansion2" nillable="true" type="xsd:string"/>					
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="PermitType">
+				<xsd:sequence>				     
+					 <xsd:element minOccurs="1" name="xkzhm" nillable="false" type="xsd:string"/> 
+					 <xsd:element minOccurs="1" name="khmc" nillable="false" type="xsd:string"/> 
+					 <xsd:element minOccurs="1" name="gbbm" nillable="false" type="xsd:string"/>  
+					 <xsd:element minOccurs="1" name="gsid" nillable="false" type="xsd:string"/>  
+					 <xsd:element minOccurs="0" name="gsmc" nillable="true" type="xsd:string"/>  
+					 <xsd:element minOccurs="0" name="bmid" nillable="true" type="xsd:string"/>  
+					<xsd:element minOccurs="0" name="rwlx" nillable="true" type="xsd:string"/>  
+					<xsd:element minOccurs="0" name="jydz" nillable="true" type="xsd:string"/>  
+					<xsd:element minOccurs="0" name="fr" nillable="true" type="xsd:string"/>  
+					<xsd:element minOccurs="0" name="lxdh" nillable="true" type="xsd:string"/>  
+					<xsd:element minOccurs="0" name="xb" nillable="true" type="xsd:string"/>  
+					<xsd:element minOccurs="0" name="nl" nillable="true" type="xsd:int"/>     
+					<xsd:element minOccurs="0" name="sfz" nillable="true" type="xsd:string"/>  
+					<xsd:element minOccurs="0" name="yyzz" nillable="true" type="xsd:string"/>  
+					<xsd:element minOccurs="0" name="frcsny" nillable="true" type="xsd:date"/>
+					<xsd:element minOccurs="0" name="slrq" nillable="true" type="xsd:date"/>
+					<xsd:element minOccurs="0" name="yxrq" nillable="true" type="xsd:date"/>
+					<xsd:element minOccurs="0" name="ghdw" nillable="true" type="xsd:string"/>  
+					<xsd:element minOccurs="0" name="jyfw" nillable="true" type="xsd:string"/>  
+					<xsd:element minOccurs="1" name="jyxz" nillable="false" type="xsd:string"/>  
+					<xsd:element minOccurs="0" name="jyyt" nillable="true" type="xsd:string"/>  
+					<xsd:element minOccurs="1" name="zl" nillable="false" type="xsd:string"/>  
+					<xsd:element minOccurs="0" name="bzrq" nillable="true" type="xsd:date"/>
+					<xsd:element minOccurs="0" name="gxrq" nillable="true" type="xsd:date"/>
+					<xsd:element minOccurs="0" name="nsrq" nillable="true" type="xsd:date"/>					 
+					<xsd:element minOccurs="0" name="bz" nillable="true" type="xsd:string"/>  
+					<xsd:element minOccurs="0" name="zyjy" nillable="true" type="xsd:string"/>  
+					<xsd:element minOccurs="0" name="ycxt" nillable="true" type="xsd:string"/>  
+					<xsd:element minOccurs="0" name="xtnxs" nillable="true" type="xsd:string"/>  
+					<xsd:element minOccurs="0" name="zzrq0" nillable="true" type="xsd:date"/>
+					<xsd:element minOccurs="0" name="zzrq1" nillable="true" type="xsd:date"/>
+					<xsd:element minOccurs="0" name="xzfq" nillable="true" type="xsd:string"/> 	
+					<xsd:element minOccurs="0" name="zt" nillable="true" type="xsd:string"/> 
+					<xsd:element minOccurs="0" name="ext_col1" nillable="true" type="xsd:string"/> 		
+					<xsd:element minOccurs="0" name="ext_col2" nillable="true" type="xsd:string"/>
+					<xsd:element minOccurs="0" name="ext_col3" nillable="true" type="xsd:string"/>
+					<xsd:element minOccurs="0" name="ext_col4" nillable="true" type="xsd:string"/>
+					<xsd:element minOccurs="0" name="ext_col5" nillable="true" type="xsd:string"/>
+					<xsd:element minOccurs="0" name="ext_col6" nillable="true" type="xsd:string"/>
+					<xsd:element minOccurs="0" name="ext_col7" nillable="true" type="xsd:string"/>
+					<xsd:element minOccurs="0" name="ext_col8" nillable="true" type="xsd:string"/>
+					<xsd:element minOccurs="0" name="ext_col9" nillable="true" type="xsd:string"/>
+					<xsd:element minOccurs="0" name="ext_col10" nillable="true" type="xsd:string"/>		
+				</xsd:sequence>
+			</xsd:complexType>
+	
+			<xsd:complexType name="CommonResultType">
+				<xsd:sequence>
+					<xsd:element minOccurs="1" name="code" nillable="false" type="xsd:string"/>
+					<xsd:element minOccurs="1" name="msg" nillable="true" type="xsd:string"/>
+				</xsd:sequence>
+			</xsd:complexType>		
+			
+			<xsd:element name="reqHeader" type="tns:RequestHeaderType"/>
+			<xsd:element name="respHeader" type="tns:ResponseHeaderType"/>
+		
+			<xsd:element name="handle">
+                <xsd:complexType>
+                    <xsd:sequence>
+                       <xsd:element minOccurs="1" name="action" nillable="false" type="xsd:string"/>
+                       <xsd:element maxOccurs="unbounded" minOccurs="1" name="permit" type="tns:PermitType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="handleResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="unbounded" minOccurs="1" name="result" type="tns:CommonResultType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+
+
+		</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="handleResponse">
+    <wsdl:part name="handleResponseBody" element="tns:handleResponse">
+    </wsdl:part>
+    <wsdl:part name="responseHeader" element="tns:respHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="handleRequest">
+    <wsdl:part name="handleRequestBody" element="tns:handle">
+    </wsdl:part>
+    <wsdl:part name="requestHeader" element="tns:reqHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Permit">
+    <wsdl:operation name="handle">
+      <wsdl:input message="tns:handleRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:handleResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PermitSOAP" type="tns:Permit">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="handle">
+      <soap:operation soapAction="urn:handle" style="document"/>
+      <wsdl:input>
+        <soap:body parts="handleRequestBody" use="literal"/>
+        <soap:header message="tns:handleRequest" part="requestHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="handleResponseBody" use="literal"/>
+        <soap:header message="tns:handleResponse" part="responseHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Permit">
+    <wsdl:port name="PermitSOAPEndpoint" binding="tns:PermitSOAP">
+      <soap:address location="http://js-tobacco.com.cn/mdm/Permit"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

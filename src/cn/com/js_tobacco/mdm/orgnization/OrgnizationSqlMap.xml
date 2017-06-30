@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="OrgnizationDomain">
+<insert id="insertOrgnization" parameterType="map" >
+        INSERT INTO MD_ORGANIZATION(
+        CODE,
+        NAME,
+        POSTALCODE,
+        ADDRESS,
+        FILENAME,
+        JGXZLB,
+        TAXORGTYPE,
+        JGJB,
+        ORG_PERIOD,
+        ORG_CLSJ,
+        PZCLJG,
+        PZCLWJH,
+        ORG_CXSJ,
+        PZCXJG,
+        PZCXWJH,
+        VOCATION,
+        APPROVEDTOTAL,
+        TAXORGCLASS,
+        REMARK,
+        CATEGORY,
+        PARENT_CODE,
+        ORDER_INFO,
+        STATUS) 
+        VALUES (
+        #{code, jdbcType=VARCHAR},
+        #{name, jdbcType=VARCHAR},
+        #{postalcode, jdbcType=VARCHAR},
+        #{address, jdbcType=VARCHAR},
+        #{filename, jdbcType=VARCHAR},
+        #{jgxzlb, jdbcType=VARCHAR},
+        #{taxorgtype, jdbcType=VARCHAR},
+        #{jgjb, jdbcType=VARCHAR},
+        #{org_period, jdbcType=VARCHAR},
+        #{org_clsj, jdbcType=VARCHAR},
+        #{pzcljg, jdbcType=VARCHAR},
+        #{pzclwjh, jdbcType=VARCHAR},
+        #{org_cxsj, jdbcType=VARCHAR},
+        #{pzcxjg, jdbcType=VARCHAR},
+        #{pzclwjh, jdbcType=VARCHAR},
+        #{vocation, jdbcType=VARCHAR},
+        #{approvedtotal, jdbcType=INTEGER},
+        #{taxorgclass, jdbcType=VARCHAR},
+        #{remark, jdbcType=VARCHAR},
+        #{category, jdbcType=VARCHAR},
+        #{parent_code, jdbcType=VARCHAR},
+        #{orderinfo, jdbcType=INTEGER},
+        #{status, jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateOrgnization"  parameterType="map">
+        UPDATE MD_ORGANIZATION SET
+        CODE = #{code, jdbcType=VARCHAR},
+        NAME = #{name, jdbcType=VARCHAR},
+        POSTALCODE = #{postalcode, jdbcType=VARCHAR},
+        ADDRESS = #{address, jdbcType=VARCHAR},
+        FILENAME = #{filename, jdbcType=VARCHAR},
+        JGXZLB = #{jgxzlb, jdbcType=VARCHAR},
+        TAXORGTYPE = #{taxorgtype, jdbcType=VARCHAR},
+        JGJB = #{jgjb, jdbcType=VARCHAR},
+        ORG_PERIOD = #{org_period, jdbcType=VARCHAR},
+        ORG_CLSJ = #{org_clsj, jdbcType=VARCHAR},
+        PZCLJG = #{pzcljg, jdbcType=VARCHAR},
+        PZCLWJH = #{pzclwjh, jdbcType=VARCHAR},
+        ORG_CXSJ = #{org_cxsj, jdbcType=VARCHAR},
+        PZCXJG = #{pzcxjg, jdbcType=VARCHAR},
+        PZCXWJH = #{pzclwjh, jdbcType=VARCHAR},
+        VOCATION = #{vocation, jdbcType=VARCHAR},
+        APPROVEDTOTAL = #{approvedtotal, jdbcType=INTEGER},
+        TAXORGCLASS = #{taxorgclass, jdbcType=VARCHAR},
+        REMARK = #{remark, jdbcType=VARCHAR},
+        CATEGORY = #{category, jdbcType=VARCHAR},
+        PARENT_CODE = #{parent_code, jdbcType=VARCHAR},
+        ORDER_INFO = #{orderinfo, jdbcType=INTEGER},
+        STATUS = #{status, jdbcType=VARCHAR}
+        WHERE  CODE = #{code}
+    </update>
+    
+    <select id="getOrgnization" parameterType="map" resultType="map" >
+        SELECT * FROM MD_ORGANIZATION
+        <where>
+            <if test="code != null">
+                CODE = #{code}
+            </if>
+        </where>                
+    </select>
+    
+    <delete id="deleteOrgnization" parameterType="map">
+        DELETE FROM MD_ORGANIZATION WHERE CODE = #{code}
+    </delete>
+
+</mapper>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.js_tobacco.mdm.position.sql.PositionMapper">
+	<insert id="insertPosition" parameterType="map">
+		INSERT INTO MD_POSITION(
+        POSITION_ID,
+        EMP_CODE,
+        APPUNIT,
+        POSNAME,
+        POSDATE,
+        POSATT,
+        BUSINESSCURRENTLY,
+        POSGRADE,
+        CURGRADATE,
+        DISMANNER,
+        APPSYMBOL,
+        NEXTBUSINESSYEAR,
+        SYZT,
+        SYKSSJ,
+        SYJSSJ,
+        REMOVEDATE,
+        REMOVETYPE,
+        DISSYMBOL,
+        CHATYPE,
+        POSDESCRIBE,
+        POSNO,
+        ISCOMPETITION,
+        REMARK,
+        STATUS) 
+        VALUES (
+        #{positionid, jdbcType=VARCHAR},
+        #{empcode, jdbcType=VARCHAR},
+        #{appunit, jdbcType=VARCHAR},
+        #{posname, jdbcType=VARCHAR},
+        #{posdate, jdbcType=VARCHAR},
+        #{posatt, jdbcType=VARCHAR},
+        #{businesscurrently, jdbcType=VARCHAR},
+        #{posgrade, jdbcType=VARCHAR},
+        #{curgradate, jdbcType=VARCHAR},
+        #{dismanner, jdbcType=VARCHAR},
+        #{appsymbol, jdbcType=VARCHAR},
+        #{nextbusinessyear, jdbcType=VARCHAR},
+        #{syzt, jdbcType=VARCHAR},
+        #{sykssj, jdbcType=VARCHAR},
+        #{syjssj, jdbcType=VARCHAR},
+        #{removedate, jdbcType=VARCHAR},
+        #{removetype, jdbcType=VARCHAR},
+        #{dissymbol, jdbcType=VARCHAR},
+        #{chatype, jdbcType=VARCHAR},
+        #{posdescribe, jdbcType=VARCHAR},
+        #{posno, jdbcType=VARCHAR},
+        #{iscompetition, jdbcType=VARCHAR},
+        #{remark, jdbcType=VARCHAR},
+        #{status, jdbcType=VARCHAR})
+	</insert>
+	
+	<update id="updatePosition"  parameterType="map">
+        UPDATE MD_POSITION SET
+        POSITION_ID = #{positionid, jdbcType=VARCHAR},
+        EMP_CODE = #{empcode, jdbcType=VARCHAR},
+        APPUNIT = #{appunit, jdbcType=VARCHAR},
+        POSNAME = #{posname, jdbcType=VARCHAR},
+        POSDATE = #{posdate, jdbcType=VARCHAR},
+        POSATT = #{posatt, jdbcType=VARCHAR},
+        BUSINESSCURRENTLY = #{businesscurrently, jdbcType=VARCHAR},
+        POSGRADE = #{posgrade, jdbcType=VARCHAR},
+        CURGRADATE = #{curgradate, jdbcType=VARCHAR},
+        DISMANNER = #{dismanner, jdbcType=VARCHAR},
+        APPSYMBOL = #{appsymbol, jdbcType=VARCHAR},
+        NEXTBUSINESSYEAR = #{nextbusinessyear, jdbcType=VARCHAR},
+        SYZT = #{syzt, jdbcType=VARCHAR},
+        SYKSSJ = #{sykssj, jdbcType=VARCHAR},
+        SYJSSJ = #{syjssj, jdbcType=VARCHAR}, 
+        REMOVEDATE = #{removedate, jdbcType=VARCHAR}, 
+        REMOVETYPE = #{removetype, jdbcType=VARCHAR},
+        DISSYMBOL = #{dissymbol, jdbcType=VARCHAR},
+        CHATYPE = #{chatype, jdbcType=VARCHAR},
+        POSDESCRIBE = #{posdescribe, jdbcType=VARCHAR},
+        POSNO = #{posno, jdbcType=VARCHAR},
+        ISCOMPETITION = #{iscompetition, jdbcType=VARCHAR},
+        REMARK = #{remark, jdbcType=VARCHAR},
+        STATUS = #{status, jdbcType=VARCHAR}
+        WHERE  POSITION_ID = #{positionid}
+    </update>
+
+    <select id="getPosition" parameterType="map" resultType="map" >
+        SELECT * FROM MD_POSITION
+        <where>
+            <if test="POSITION_ID != null">
+                POSITION_ID = #{positionid}
+            </if>
+        </where>                
+    </select>
+    
+    <delete id="deletePosition" parameterType="map">
+        UPDATE MD_POSITION SET
+        STATUS = #{status, jdbcType=VARCHAR}
+        WHERE  POSITION_ID = #{positionid}
+    </delete>
+</mapper>

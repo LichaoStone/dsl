@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="JobDomain">
+    <insert id="insertJob" parameterType="map" >
+        INSERT INTO MD_JOB(
+        JOB_ID,
+        EMP_CODE,
+        POST_CODE,
+        JOBOCCUPATIONS,
+        WAGERULE,
+        IFCURRENT,
+        STATUS,
+        ISMAIN) 
+        VALUES (
+        #{jobid, jdbcType=VARCHAR},
+        #{empcode, jdbcType=VARCHAR},
+        #{postcode, jdbcType=VARCHAR},
+        #{joboccupations, jdbcType=VARCHAR},
+        #{wagerule, jdbcType=VARCHAR},
+        #{ifcurrent, jdbcType=VARCHAR},
+        #{status, jdbcType=VARCHAR},
+        #{ismain, jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateJob"  parameterType="map">
+        UPDATE MD_JOB SET
+        JOB_ID = #{jobid, jdbcType=VARCHAR},
+        EMP_CODE = #{empcode, jdbcType=VARCHAR},
+        POST_CODE = #{postcode, jdbcType=VARCHAR},
+        JOBOCCUPATIONS = #{joboccupations, jdbcType=VARCHAR},
+        WAGERULE = #{wagerule, jdbcType=VARCHAR},
+        IFCURRENT = #{ifcurrent, jdbcType=VARCHAR},
+        STATUS = #{status, jdbcType=VARCHAR},
+        ISMAIN = #{ismain, jdbcType=VARCHAR}
+        WHERE  JOB_ID = #{jobid}
+    </update>
+
+    <select id="getJob" parameterType="map" resultType="map" >
+        SELECT * FROM MD_JOB
+        <where>
+            <if test="JOB_ID != null">
+                JOB_ID = #{jobid}
+            </if>
+        </where>                
+    </select>
+    
+    <delete id="deleteJob" parameterType="map">
+        UPDATE MD_JOB SET
+        STATUS = #{status, jdbcType=VARCHAR}
+        WHERE  JOB_ID = #{jobid}
+    </delete>
+
+</mapper>

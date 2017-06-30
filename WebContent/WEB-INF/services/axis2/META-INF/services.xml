@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceGroup>
+   <!-- ****************************************testService2*************************************** -->
+	<service name="testService2" targetNamespace="http://www.lambo.inspur.com">
+		<Description>测试aixs2发布的web服务</Description>
+		<parameter name="ServiceObjectSupplier">org.apache.axis2.extensions.spring.receivers.SpringServletContextObjectSupplier</parameter>
+		<parameter name="SpringBeanName">webServiceTest</parameter>
+		<messageReceivers>
+		<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"
+		class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+		<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only"
+		class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver" />
+		</messageReceivers>
+	</service>
+	
+	<!-- ****************************************Employee*************************************** -->
+	<service name="Employee">
+        <messageReceivers>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="cn.com.js_tobacco.mdm.employee.EmployeeMessageReceiverInOut"/>
+        </messageReceivers>
+        <parameter name="ServiceClass">cn.com.js_tobacco.mdm.employee.EmployeeSkeleton</parameter>
+        <parameter name="useOriginalwsdl">true</parameter>
+        <parameter name="modifyUserWSDLPortAddress">true</parameter>
+        <operation name="handle" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://js-tobacco.com.cn/mdm/Employee">
+            <actionMapping>urn:handle</actionMapping>
+            <outputActionMapping>http://js-tobacco.com.cn/mdm/Employee/Employee/handleResponse</outputActionMapping>
+        </operation>
+    </service>
+    
+    <!-- ****************************************Job*************************************** -->
+     <service name="Job">
+        <messageReceivers>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="cn.com.js_tobacco.mdm.job.JobMessageReceiverInOut"/>
+        </messageReceivers>
+        <parameter name="ServiceClass">cn.com.js_tobacco.mdm.job.JobSkeleton</parameter>
+        <parameter name="useOriginalwsdl">true</parameter>
+        <parameter name="modifyUserWSDLPortAddress">true</parameter>
+        <operation name="handle" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://js-tobacco.com.cn/mdm/Job">
+            <actionMapping>urn:handle</actionMapping>
+            <outputActionMapping>http://js-tobacco.com.cn/mdm/Job/Job/handleResponse</outputActionMapping>
+        </operation>
+    </service>
+    
+     <!-- ****************************************Orgnization*************************************** -->
+    <service name="Orgnization">
+        <messageReceivers>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="cn.com.js_tobacco.mdm.orgnization.OrgnizationMessageReceiverInOut"/>
+        </messageReceivers>
+        <parameter name="ServiceClass">cn.com.js_tobacco.mdm.orgnization.OrgnizationSkeleton</parameter>
+        <parameter name="useOriginalwsdl">true</parameter>
+        <parameter name="modifyUserWSDLPortAddress">true</parameter>
+        <operation name="handle" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://js-tobacco.com.cn/mdm/Orgnization">
+            <actionMapping>urn:handle</actionMapping>
+            <outputActionMapping>http://js-tobacco.com.cn/mdm/Orgnization/Orgnization/handleResponse</outputActionMapping>
+        </operation>
+    </service>
+    
+    <!-- ****************************************Permit*************************************** -->
+     <service name="Permit">
+        <messageReceivers>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="cn.com.js_tobacco.mdm.permit.PermitMessageReceiverInOut"/>
+        </messageReceivers>
+        <parameter name="ServiceClass">cn.com.js_tobacco.mdm.permit.PermitSkeleton</parameter>
+        <parameter name="useOriginalwsdl">true</parameter>
+        <parameter name="modifyUserWSDLPortAddress">true</parameter>
+        <operation name="handle" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://js-tobacco.com.cn/mdm/Permit">
+            <actionMapping>urn:handle</actionMapping>
+            <outputActionMapping>http://js-tobacco.com.cn/mdm/Permit/Permit/handleResponse</outputActionMapping>
+        </operation>
+    </service>
+    
+    <!-- ****************************************Position*************************************** -->
+     <service name="Position">
+        <messageReceivers>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="cn.com.js_tobacco.mdm.position.PositionMessageReceiverInOut"/>
+        </messageReceivers>
+        <parameter name="ServiceClass">cn.com.js_tobacco.mdm.position.PositionSkeleton</parameter>
+        <parameter name="useOriginalwsdl">true</parameter>
+        <parameter name="modifyUserWSDLPortAddress">true</parameter>
+        <operation name="handle" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://js-tobacco.com.cn/mdm/Position">
+            <actionMapping>urn:handle</actionMapping>
+            <outputActionMapping>http://js-tobacco.com.cn/mdm/Position/Position/handleResponse</outputActionMapping>
+        </operation>
+    </service>
+    
+    <!-- ****************************************Post*************************************** -->
+	<service name="Post">
+        <messageReceivers>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="cn.com.js_tobacco.mdm.post.PostMessageReceiverInOut"/>
+        </messageReceivers>
+        <parameter name="ServiceClass">cn.com.js_tobacco.mdm.post.PostSkeleton</parameter>
+        <parameter name="useOriginalwsdl">false</parameter>
+        <parameter name="modifyUserWSDLPortAddress">true</parameter>
+        <operation name="handle" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://js-tobacco.com.cn/mdm/Post">
+            <actionMapping>urn:handle</actionMapping>
+            <outputActionMapping>http://js-tobacco.com.cn/mdm/Post/Post/handleResponse</outputActionMapping>
+        </operation>
+    </service>
+    
+   <!-- ****************************************北京零售户信息同步：syncDslCust*************************************** -->
+	<service name="syncCustRmService" targetNamespace="http://www.lambo.inspur.com">
+		<Description>行业同步零售户信息服务</Description>
+		<parameter name="ServiceObjectSupplier">org.apache.axis2.extensions.spring.receivers.SpringServletContextObjectSupplier</parameter>
+		<parameter name="SpringBeanName">syncCustRmWebService</parameter>
+		<messageReceivers>
+		<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"
+		class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+		<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only"
+		class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver" />
+		</messageReceivers>
+	</service>
+	
+	  <!-- ****************************************北京零售许可证信息同步：syncDslLicense*************************************** -->
+	<service name="BAS_ALL_INF_BJ_YXXT_CUST_DataSendMDMService" targetNamespace="http://www.lambo.inspur.com">
+		<Description>北京专卖管理系统零售许可证信息同步服务</Description>
+		<parameter name="ServiceObjectSupplier">org.apache.axis2.extensions.spring.receivers.SpringServletContextObjectSupplier</parameter>
+		<parameter name="SpringBeanName">syncLicenseWebService</parameter>
+		<messageReceivers>
+		<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"
+		class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+		<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only"
+		class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver" />
+		</messageReceivers>
+	</service>
+	  <!-- ****************************************行业零售许可证信息同步：syncDslLicense*************************************** -->
+    <service name="BAS_ALL_INF_CUST_SERVICE" targetNamespace="http://www.lambo.inspur.com">
+        <Description>行业专卖管理系统零售许可证信息同步服务</Description>
+        <parameter name="ServiceObjectSupplier">org.apache.axis2.extensions.spring.receivers.SpringServletContextObjectSupplier</parameter>
+        <parameter name="SpringBeanName">syncLicenseWebService</parameter>
+        <messageReceivers>
+        <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"
+        class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+        <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only"
+        class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver" />
+        </messageReceivers>
+    </service>
+	
+</serviceGroup>

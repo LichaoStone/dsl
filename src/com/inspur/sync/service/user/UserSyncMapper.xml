@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.inspur.sync.service.user.UserSyncMapper">
+	<!-- 所有用户 --> 
+	<select id="getUserSync" parameterType="map" resultType="map">
+		SELECT * FROM BASE_UMC_USER
+		WHERE 1=1
+		<if test="USER_NAME != null and USER_NAME !=''">
+			AND USER_NAME LIKE '%'||#{USER_NAME}||'%'
+		</if>
+        <if test="DPT_NAME != null and DPT_NAME !=''">
+            AND DPT_NAME LIKE '%'||#{DPT_NAME}||'%'
+        </if>
+	</select>
+	
+    <select id="getUserSyncByUserId" parameterType="map" resultType="map">
+        SELECT * FROM BASE_UMC_USER
+        WHERE 1=1
+        <if test="USER_ID != null and USER_ID !=''">
+            AND USER_ID = #{USER_ID}
+        </if>
+    </select>
+    
+    <select id="getUpdTime" parameterType="map" resultType="map">
+        SELECT UPD_TIME FROM BASE_UMC_USER
+    </select>
+	
+    <!-- 新增用户同步信息 -->
+    <insert id="insertUserSync" parameterType="map">
+		INSERT INTO BASE_UMC_USER(
+            USER_ID,
+            USER_NAME,
+            DPT_ID,
+            DPT_NAME,
+            MOBILE_TEL,
+            ID_CARD,
+            ACCOUNT_DISABLED
+        ) VALUES(
+            #{USER_ID},
+            #{USER_NAME},
+            #{DPT_ID},
+            #{DPT_NAME},
+            #{MOBILE_TEL},
+            #{ID_CARD},
+            #{ACCOUNT_DISABLED}
+        )
+    </insert>
+    
+    <update id="updateUserSync"  parameterType="map">
+        UPDATE BASE_UMC_USER SET
+            USER_ID=#{USER_ID,jdbcType=VARCHAR},
+            USER_NAME=#{USER_NAME,jdbcType=VARCHAR},
+            DPT_ID=#{DPT_ID,jdbcType=VARCHAR},
+            DPT_NAME=#{DPT_NAME,jdbcType=VARCHAR},
+            MOBILE_TEL=#{MOBILE_TEL,jdbcType=VARCHAR},
+            ID_CARD=#{ID_CARD,jdbcType=VARCHAR},
+            ACCOUNT_DISABLED=#{ACCOUNT_DISABLED,jdbcType=VARCHAR}
+        WHERE USER_ID=#{USER_ID}
+    </update>
+    
+    <update id="updateUserSyncUpdTime"  parameterType="map">
+        UPDATE BASE_UMC_USER SET
+            UPD_TIME=#{UPD_TIME,jdbcType=VARCHAR}
+    </update>
+    
+</mapper>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inspur.receivesend.rocketmq.syncItem.SyncItemMapper">
+     <insert id="insertDslItem" parameterType="map">
+      INSERT INTO DSL_ITEM (
+        ITEM_ID, ITEM_NAME, SHORT_NAME,
+		PACK_BAR, BOX_BAR, BIGBOX_BAR,
+		BRDOWNER_ID, BRAND_ID, UM_ID,
+		UM_PUH, UM_INVTY, UM_SALE, IS_MRB,
+		COLOR, ITEM_KIND, IS_TALL, IS_THIN,
+		SPEC, KIND, TAR_CONT, GAS_NICOTINE,
+		CO_CONT, H_SIZE, T_SIZE, J_SIZE,
+		W_SIZE, X_SIZE, PACK_KIND, PRODUCT_TYPE,
+		PRODUCTION_PROCESS, YIELDLY_TYPE,
+		FILTER_COLOR, DESCRIPTION, CIRCLE, NOTE,
+		IS_ABNORMAL, MSG_ID
+		)
+		VALUES (
+		#{ITEM_ID,jdbcType=VARCHAR}, #{ITEM_NAME,jdbcType=VARCHAR},
+		#{SHORT_NAME,jdbcType=VARCHAR}, #{PACK_BAR,jdbcType=VARCHAR},
+		#{BOX_BAR,jdbcType=VARCHAR}, #{BIGBOX_BAR,jdbcType=VARCHAR},
+		#{BRDOWNER_ID,jdbcType=VARCHAR}, #{BRAND_ID,jdbcType=VARCHAR},
+		#{UM_ID,jdbcType=VARCHAR}, #{UM_PUH,jdbcType=VARCHAR},
+		#{UM_INVTY,jdbcType=VARCHAR}, #{UM_SALE,jdbcType=VARCHAR},
+		#{IS_MRB,jdbcType=CHAR}, #{COLOR,jdbcType=VARCHAR},
+		#{ITEM_KIND,jdbcType=CHAR}, #{IS_TALL,jdbcType=CHAR},
+		#{IS_THIN,jdbcType=CHAR}, #{SPEC,jdbcType=VARCHAR},
+		#{KIND,jdbcType=CHAR}, #{TAR_CONT,jdbcType=DECIMAL},
+		#{GAS_NICOTINE,jdbcType=DECIMAL}, #{CO_CONT,jdbcType=DECIMAL},
+		#{H_SIZE,jdbcType=DECIMAL}, #{T_SIZE,jdbcType=DECIMAL},
+		#{J_SIZE,jdbcType=DECIMAL}, #{W_SIZE,jdbcType=DECIMAL},
+		#{X_SIZE,jdbcType=DECIMAL}, #{PACK_KIND,jdbcType=VARCHAR},
+		#{PRODUCT_TYPE,jdbcType=CHAR}, #{PRODUCTION_PROCESS,jdbcType=CHAR},
+		#{YIELDLY_TYPE,jdbcType=CHAR}, #{FILTER_COLOR,jdbcType=VARCHAR},
+		#{DESCRIPTION,jdbcType=VARCHAR}, #{CIRCLE,jdbcType=DECIMAL},
+		#{NOTE,jdbcType=VARCHAR}, #{IS_ABNORMAL,jdbcType=VARCHAR},
+		#{MSG_ID,jdbcType=VARCHAR}
+		)
+     </insert>
+     
+     <!-- 取得一条商品明细，按照甘肃格式组织-->
+	<select id="getDslItemByGS" parameterType="map" resultType="map">
+		SELECT PI.ITEM_ID,PI.ITEM_ID ITEM_CODE,PI.ITEM_NAME
+            ,PI.SHORT_NAME,PI.UM_ID,PI.PACK_BAR,PI.BOX_BAR
+            ,PI.UM_PUH,PI.UM_INVTY UM_WHSE,PI.UM_SALE,'0.17' TAX_ID
+            ,'' CANT_ID,365 SHELF_PER,PI.IS_MRB,PI.ITEM_KIND
+            ,'' ITEM_ID_CCT,PI.COLOR COLOUR
+            ,PI.PACK_BAR STAND_BAR_CODE,PI.BIGBOX_BAR
+            ,PI.PACK_BAR STAND_BAR_NAME,PI.BRAND_ID BRAND_ID1
+            ,PI.BRDOWNER_ID MFR_ID1,'' VEND_ID,PI.IS_ABNORMAL IS_NORMAL
+        FROM DSL_ITEM PI
+        WHERE PI.ITEM_ID=#{ITEM_ID} AND PI.MSG_ID=#{MSG_ID}
+	</select>
+     
+     <!-- 取得一条商品明细，按照甘肃格式组织-->
+	<select id="getDslItemTobaccoByGS" parameterType="map" resultType="map">
+		SELECT PI.ITEM_ID,PI.SPEC,PI.KIND,PI.TAR_CONT
+            ,PI.GAS_NICOTINE,PI.CO_CONT,'' BRD_KIND
+            ,'' BRD_KEY,PI.PACK_KIND,
+            CASE PI.PRODUCT_TYPE WHEN '10' THEN '1' WHEN '20' THEN '2' 
+                                 WHEN '30' THEN '3' WHEN '40' THEN '4' 
+                                 WHEN '50' THEN '5' END PRODUCT_TYPE
+            ,'' NATIONAL,PI.YIELDLY_TYPE IS_IMPORTED
+            ,'' BAR_TYPE,PI.DESCRIPTION,PI.FILTER_COLOR
+            ,'' KIND1,PI.IS_ABNORMAL
+        FROM DSL_ITEM PI
+        WHERE PI.ITEM_ID=#{ITEM_ID} AND PI.MSG_ID=#{MSG_ID}
+	</select>
+	
+	<!-- 取得一条商品明细，按照重庆格式组织-->
+	<select id="findDslItemByCQ" parameterType="map" resultType="map">
+		SELECT SI.ITEM_ID ITEM_CODE,SI.ITEM_NAME,SI.PACK_BAR ITEM_CARTON_CODE
+            ,'11500001' COM_CODE,SI.BOX_BAR ITEM_PACKET_CODE,SI.BIGBOX_BAR ITEM_CASE_CODE
+            ,'' ITEM_SHORT_NAME,SI.UM_ID BASE_UNIT_CODE,SI.UM_PUH PURCH_UNIT_CODE
+            ,SI.UM_SALE SALE_UNIT_CODE,SI.BRAND_ID BRAND_TRADEMARK
+            ,SI.BRDOWNER_ID MANUFACTORY_ORG_CODE,SI.COLOR COLOUR,'' SHELF_PER
+            ,SI.SPEC BRAND_SPEC,SI.KIND PRI_TYPE_CODE,SI.TAR_CONT TAR_CONT_CODE
+            ,SI.GAS_NICOTINE GAS_NICOTINE_CODE,'' SENIOR_FLAG,'' LOW_PRI_FLAG
+            ,'' LENGTH_ALL,'' LENGTH,'' LENCH_LENGTH,SI.CIRCLE GIRTH,'' IMPORTANT_IS
+            ,SI.PACK_KIND PACK_KIND_CODE,'' BRAND_MGR_CODE,'' CATEGORY_CODE,'' CATEGORY_NAME
+            ,'' LIFE_CYCLE_CODE,SI.PRODUCT_TYPE,'' W_T_RATE,'' ITEM_STATUS,SI.IS_MRB DEAL_TYPE
+        FROM  DSL_ITEM SI
+        WHERE SI.ITEM_ID=#{ITEM_ID} AND SI.MSG_ID=#{MSG_ID}
+	</select>
+	
+	<!--查询商品  -->
+	<select id="getPlmItemByJS" parameterType="map" resultType="map">
+	SELECT ITEM_ID, ITEM_NAME, SHORT_NAME,
+		PACK_BAR, BOX_BAR, BIGBOX_BAR,
+		BRDOWNER_ID, BRAND_ID, UM_ID,
+		UM_PUH, UM_INVTY, UM_SALE, IS_MRB,
+		COLOR, ITEM_KIND, IS_TALL, IS_THIN,
+		SPEC, KIND, TAR_CONT, GAS_NICOTINE,
+		CO_CONT, H_SIZE, T_SIZE, J_SIZE,
+		W_SIZE, X_SIZE, PACK_KIND, PRODUCT_TYPE,
+		PRODUCTION_PROCESS, YIELDLY_TYPE,
+		FILTER_COLOR, DESCRIPTION, CIRCLE, NOTE,
+		IS_ABNORMAL
+	FROM DSL_ITEM
+	WHERE MSG_ID=#{MSG_ID}
+     </select>
+	
+	<!--插入商品  -->
+	<insert id="insertPlmItemToJS" parameterType="map">
+      INSERT INTO PLM_ITEM (
+        ITEM_ID, ITEM_NAME, SHORT_NAME,
+		PACK_BAR, BOX_BAR, BIGBOX_BAR,
+		BRDOWNER_ID, BRAND_ID, UM_ID,
+		UM_PUH, UM_INVTY, UM_SALE, IS_MRB,
+		COLOR, ITEM_KIND, IS_TALL, IS_THIN,
+		SPEC, KIND, TAR_CONT, GAS_NICOTINE,
+		CO_CONT, H_SIZE, T_SIZE, J_SIZE,
+		W_SIZE, X_SIZE, PACK_KIND, PRODUCT_TYPE,
+		PRODUCTION_PROCESS, YIELDLY_TYPE,
+		FILTER_COLOR, DESCRIPTION, CIRCLE, NOTE,
+		IS_ABNORMAL,UPDATE_TIME)
+	VALUES (
+		#{ITEM_ID,jdbcType=VARCHAR}, #{ITEM_NAME,jdbcType=VARCHAR},
+		#{SHORT_NAME,jdbcType=VARCHAR}, #{PACK_BAR,jdbcType=VARCHAR},
+		#{BOX_BAR,jdbcType=VARCHAR}, #{BIGBOX_BAR,jdbcType=VARCHAR},
+		#{BRDOWNER_ID,jdbcType=VARCHAR}, #{BRAND_ID,jdbcType=VARCHAR},
+		#{UM_ID,jdbcType=VARCHAR}, #{UM_PUH,jdbcType=VARCHAR},
+		#{UM_INVTY,jdbcType=VARCHAR}, #{UM_SALE,jdbcType=VARCHAR},
+		#{IS_MRB,jdbcType=CHAR}, #{COLOR,jdbcType=VARCHAR},
+		#{ITEM_KIND,jdbcType=CHAR}, #{IS_TALL,jdbcType=CHAR},
+		#{IS_THIN,jdbcType=CHAR}, #{SPEC,jdbcType=VARCHAR},
+		#{KIND,jdbcType=CHAR}, #{TAR_CONT,jdbcType=DECIMAL},
+		#{GAS_NICOTINE,jdbcType=DECIMAL}, #{CO_CONT,jdbcType=DECIMAL},
+		#{H_SIZE,jdbcType=DECIMAL}, #{T_SIZE,jdbcType=DECIMAL},
+		#{J_SIZE,jdbcType=DECIMAL}, #{W_SIZE,jdbcType=DECIMAL},
+		#{X_SIZE,jdbcType=DECIMAL}, #{PACK_KIND,jdbcType=VARCHAR},
+		#{PRODUCT_TYPE,jdbcType=CHAR}, #{PRODUCTION_PROCESS,jdbcType=CHAR},
+		#{YIELDLY_TYPE,jdbcType=CHAR}, #{FILTER_COLOR,jdbcType=VARCHAR},
+		#{DESCRIPTION,jdbcType=VARCHAR}, #{CIRCLE,jdbcType=DECIMAL},
+		#{NOTE,jdbcType=VARCHAR}, #{IS_ABNORMAL,jdbcType=VARCHAR},
+		<choose>
+		<when test="_databaseId==hana">
+			CURRENT_TIMESTAMP
+		</when>
+		<when test="_databaseId==db2">
+			CURRENT TIMESTAMP
+		</when>
+		<otherwise>
+			CAST (sysdate AS TIMESTAMP )
+		</otherwise>
+		</choose>
+		)
+     </insert>
+     
+     <!--修改商品  -->
+	<update id="updPlmItemToJS" parameterType="map">
+      UPDATE PLM_ITEM SET 
+        ITEM_NAME=#{ITEM_NAME,jdbcType=VARCHAR},SHORT_NAME=#{SHORT_NAME,jdbcType=VARCHAR},
+		PACK_BAR=#{PACK_BAR,jdbcType=VARCHAR},	BOX_BAR=#{BOX_BAR,jdbcType=VARCHAR}, 
+		BIGBOX_BAR=#{BIGBOX_BAR,jdbcType=VARCHAR},BRDOWNER_ID=#{BRDOWNER_ID,jdbcType=VARCHAR},
+		BRAND_ID=#{BRAND_ID,jdbcType=VARCHAR}, UM_ID=#{UM_ID,jdbcType=CHAR},
+		UM_PUH=#{UM_PUH,jdbcType=CHAR},UM_INVTY=#{UM_INVTY,jdbcType=CHAR},
+		UM_SALE=#{UM_SALE,jdbcType=CHAR},IS_MRB=#{IS_MRB,jdbcType=CHAR},
+		COLOR=#{COLOR,jdbcType=VARCHAR},ITEM_KIND=#{ITEM_KIND,jdbcType=VARCHAR},
+		IS_TALL=#{IS_TALL,jdbcType=CHAR},IS_THIN=#{IS_THIN,jdbcType=CHAR},
+		SPEC=#{SPEC,jdbcType=VARCHAR},	KIND=#{KIND,jdbcType=CHAR},
+		TAR_CONT=#{TAR_CONT,jdbcType=DECIMAL},GAS_NICOTINE=#{GAS_NICOTINE,jdbcType=DECIMAL},
+		CO_CONT=#{CO_CONT,jdbcType=DECIMAL},H_SIZE=#{H_SIZE,jdbcType=DECIMAL},
+		T_SIZE=#{T_SIZE,jdbcType=DECIMAL},J_SIZE=#{J_SIZE,jdbcType=DECIMAL},
+		W_SIZE=#{W_SIZE,jdbcType=DECIMAL},X_SIZE=#{X_SIZE,jdbcType=DECIMAL},
+        PACK_KIND=#{PACK_KIND,jdbcType=VARCHAR},PRODUCT_TYPE=#{PRODUCT_TYPE,jdbcType=CHAR},
+        PRODUCTION_PROCESS = #{PRODUCTION_PROCESS,jdbcType=CHAR},
+        YIELDLY_TYPE = #{YIELDLY_TYPE,jdbcType=CHAR},FILTER_COLOR=#{FILTER_COLOR,jdbcType=VARCHAR},
+		DESCRIPTION=#{DESCRIPTION,jdbcType=VARCHAR},CIRCLE=#{CIRCLE,jdbcType=DECIMAL},
+		NOTE=#{NOTE,jdbcType=VARCHAR},IS_ABNORMAL=#{IS_ABNORMAL,jdbcType=CHAR},
+		<choose>
+		<when test="_databaseId==hana">
+			UPDATE_TIME=CURRENT_TIMESTAMP
+		</when>
+		<when test="_databaseId==db2">
+			UPDATE_TIME=CURRENT TIMESTAMP
+		</when>
+		<otherwise>
+			UPDATE_TIME=CAST (sysdate AS TIMESTAMP)
+		</otherwise>
+		</choose>
+        WHERE ITEM_ID=#{ITEM_ID}
+     </update>
+	
+     <!-- 取得一条服务明细-->
+	<select id="getServerInfo" parameterType="map" resultType="map">
+		SELECT SERVER_URL,NAME_SPACE
+        FROM  DSL_SERVER_INFO
+        WHERE MODULE_ID=#{MODULE_ID} AND SERVER_ID=#{SERVER_ID}
+	</select>
+</mapper>

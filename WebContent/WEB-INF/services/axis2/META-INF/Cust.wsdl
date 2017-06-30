@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="Cust" targetNamespace="http://js-tobacco.com.cn/mdm/Cust" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://js-tobacco.com.cn/mdm/Cust" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://js-tobacco.com.cn/mdm/Cust">	
+			<xsd:complexType name="RequestHeaderType">
+				<xsd:sequence>
+					<xsd:element minOccurs="1" name="Svc_ServiceCode" nillable="false" type="xsd:string"/>
+					<xsd:element name="Svc_Version" nillable="true" type="xsd:string"/>
+					<xsd:element minOccurs="1" name="Svc_RunningNumber" nillable="false" type="xsd:string"/>
+					<xsd:element name="Svc_TranDate" nillable="true" type="xsd:date"/>
+					<xsd:element name="Svc_TranTimeStamp" nillable="true" type="xsd:time"/>
+					<xsd:element name="Svc_Org" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_UserName" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_Password" nillable="true" type="xsd:string"/>
+					<xsd:element minOccurs="1" name="Svc_Inbound" nillable="false" type="xsd:string"/>
+					<xsd:element minOccurs="1" name="Svc_Outbound" nillable="false" type="xsd:string"/>
+					<xsd:element name="Svc_Timeout" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_ConId" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_ReplyServiceCode" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_ReplyVersion" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_FTP_Dir" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_FileList" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_Expansion1" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_Expansion2" nillable="true" type="xsd:string"/>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="ResponseHeaderType">
+				<xsd:sequence>
+					<xsd:element minOccurs="1" name="Svc_ResultCode" nillable="false" type="xsd:string"/>
+					<xsd:element name="Svc_ResultMsg" nillable="true" type="xsd:string"/>
+					<xsd:element minOccurs="1" name="Svc_TranDate" nillable="false" type="xsd:date"/>
+					<xsd:element minOccurs="1" name="Svc_TranTimeStamp" nillable="false" type="xsd:time"/>
+					<xsd:element name="Svc_OutboundRunningNumber" nillable="true" type="xsd:string"/>					
+					<xsd:element name="Svc_ConId" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_FTP_Dir" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_FileList" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_Expansion1" nillable="true" type="xsd:string"/>
+					<xsd:element name="Svc_Expansion2" nillable="true" type="xsd:string"/>					
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="CustType">
+				<xsd:sequence>				     
+					  <xsd:element minOccurs="1" name="customercode" nillable="false" type="xsd:string"/> 
+					  <xsd:element minOccurs="1" name="customerdesc" nillable="false" type="xsd:string"/> 
+					  <xsd:element minOccurs="1" name="companyid" nillable="false" type="xsd:int"/>  
+				 	  <xsd:element minOccurs="0" name="companycode" nillable="true" type="xsd:string"/>  
+					  <xsd:element minOccurs="1" name="customerlabel" nillable="false" type="xsd:string"/>  
+					  <xsd:element minOccurs="0" name="invoicetypeid" nillable="true" type="xsd:int"/>  
+						<xsd:element minOccurs="0" name="legalperson" nillable="true" type="xsd:string"/>  
+						<xsd:element minOccurs="0" name="addr" nillable="true" type="xsd:string"/>  
+						<xsd:element minOccurs="0" name="tel" nillable="true" type="xsd:string"/>  
+						<xsd:element minOccurs="0" name="bankcode" nillable="true" type="xsd:string"/>  
+						<xsd:element minOccurs="0" name="accountno" nillable="true" type="xsd:string"/>  
+						<xsd:element minOccurs="0" name="taxno" nillable="true" type="xsd:string"/>     
+						<xsd:element minOccurs="0" name="permitno" nillable="true" type="xsd:string"/>  
+						<xsd:element minOccurs="0" name="thesystem" nillable="true" type="xsd:int"/>  
+						<xsd:element minOccurs="1" name="customergradeid" nillable="false" type="xsd:int"/>
+						<xsd:element minOccurs="0" name="whid" nillable="true" type="xsd:int"/>
+						<xsd:element minOccurs="0" name="visitsalesperiod" nillable="true" type="xsd:int"/>
+						<xsd:element minOccurs="0" name="batchno" nillable="true" type="xsd:string"/>  
+						<xsd:element minOccurs="0" name="paymentmode" nillable="true" type="xsd:int"/>  
+						<xsd:element minOccurs="0" name="isvisitbytel" nillable="true" type="xsd:string"/>  
+						<xsd:element minOccurs="0" name="statistics" nillable="true" type="xsd:string"/>  
+						<xsd:element minOccurs="0" name="custmgr" nillable="true" type="xsd:string"/>  
+						<xsd:element minOccurs="0" name="deptcode" nillable="true" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="twsj" nillable="true" type="xsd:date"/>
+						<xsd:element minOccurs="0" name="xkzlx" nillable="true" type="xsd:string"/>					 
+						<xsd:element minOccurs="0" name="xsgm" nillable="true" type="xsd:string"/>  
+						<xsd:element minOccurs="0" name="lxr" nillable="true" type="xsd:string"/>  
+						<xsd:element minOccurs="0" name="dh" nillable="true" type="xsd:string"/>  
+						<xsd:element minOccurs="0" name="sclx" nillable="true" type="xsd:string"/>  
+						<xsd:element minOccurs="0" name="sfls" nillable="true" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="lsfs" nillable="true" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="khbzbm_gjj" nillable="true" type="xsd:string"/> 	
+						<xsd:element minOccurs="1" name="status" nillable="false" type="xsd:int"/> 
+						<xsd:element minOccurs="0" name="ext_col1" nillable="true" type="xsd:string"/> 		
+						<xsd:element minOccurs="0" name="ext_col2" nillable="true" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="ext_col3" nillable="true" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="ext_col4" nillable="true" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="ext_col5" nillable="true" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="ext_col6" nillable="true" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="ext_col7" nillable="true" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="ext_col8" nillable="true" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="ext_col9" nillable="true" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="ext_col10" nillable="true" type="xsd:string"/>	  						
+				</xsd:sequence>
+			</xsd:complexType>
+	
+			<xsd:complexType name="CommonResultType">
+				<xsd:sequence>
+					<xsd:element minOccurs="1" name="code" nillable="false" type="xsd:string"/>
+					<xsd:element minOccurs="1" name="msg" nillable="true" type="xsd:string"/>
+				</xsd:sequence>
+			</xsd:complexType>		
+			
+			<xsd:element name="reqHeader" type="tns:RequestHeaderType"/>
+			<xsd:element name="respHeader" type="tns:ResponseHeaderType"/>
+		
+			<xsd:element name="handle">
+                <xsd:complexType>
+                    <xsd:sequence>
+                       <xsd:element minOccurs="1" name="action" nillable="false" type="xsd:string"/>
+                       <xsd:element maxOccurs="unbounded" minOccurs="1" name="cust" type="tns:CustType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="handleResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="unbounded" minOccurs="1" name="result" type="tns:CommonResultType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+
+
+		</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="handleRequest">
+    <wsdl:part name="handleRequestBody" element="tns:handle">
+    </wsdl:part>
+    <wsdl:part name="requestHeader" element="tns:reqHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="handleResponse">
+    <wsdl:part name="handleResponseBody" element="tns:handleResponse">
+    </wsdl:part>
+    <wsdl:part name="responseHeader" element="tns:respHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Cust">
+    <wsdl:operation name="handle">
+      <wsdl:input message="tns:handleRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:handleResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CustSOAP" type="tns:Cust">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="handle">
+      <soap:operation soapAction="urn:handle" style="document"/>
+      <wsdl:input>
+        <soap:body parts="handleRequestBody" use="literal"/>
+        <soap:header message="tns:handleRequest" part="requestHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="handleResponseBody" use="literal"/>
+        <soap:header message="tns:handleResponse" part="responseHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Cust">
+    <wsdl:port name="CustSOAPEndpoint" binding="tns:CustSOAP">
+      <soap:address location="http://js-tobacco.com.cn/mdm/Cust"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

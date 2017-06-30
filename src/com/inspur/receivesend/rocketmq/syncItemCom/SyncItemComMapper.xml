@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inspur.receivesend.rocketmq.syncItemCom.SyncItemComMapper">
+     <insert id="insertDslItemCom" parameterType="map">
+      INSERT INTO DSL_ITEM_COM (
+        COM_ID,ITEM_ID,BRAND_MANGER_ID,SHORT_CODE,TACTIC_TYPE
+        ,PLM_TYPE,CATEGORY_ID,PRICE_SEGMENT,NET_DATE,OUT_DATE
+        ,IS_COSTING,UNIT_COST,IS_MRB,STATUS,IS_LIMIT,IS_SELL
+        ,IS_ABNORMAL,PRICE_PUH,PRICE_TRN,PRICE_TRADE,PRICE_RETAIL
+        ,PRICE_REBATE,SALE_BEGIN_DATE,SALE_END_DATE,CA_SPEC
+        ,ITEM_STATUS,IF_UNSALABLE,SPEC_LEVEL
+        ,SPEC_RISK,SUPPLY_TYPE,ENOUGH_STATUS_OTHER
+        ,IS_ALLOW_CUSTSUB,NOTICE_DATE,EXIT_DATE,EXIT_DATE_END
+        ,EXIT_NOTE,INVTY_DATE,ITEM_TYPE1,ITEM_TYPE2
+        ,ITEM_TYPE3,ITEM_TYPE4,ITEM_TYPE5,SALE_T_SIZE, MSG_ID
+		)
+		VALUES (
+		#{COM_ID,jdbcType=VARCHAR}, #{ITEM_ID,jdbcType=VARCHAR},
+		#{BRAND_MANGER_ID,jdbcType=VARCHAR}, #{SHORT_CODE,jdbcType=VARCHAR},
+		#{TACTIC_TYPE,jdbcType=CHAR}, #{PLM_TYPE,jdbcType=CHAR},
+		#{CATEGORY_ID,jdbcType=VARCHAR}, #{PRICE_SEGMENT,jdbcType=VARCHAR},
+		#{NET_DATE,jdbcType=CHAR}, #{OUT_DATE,jdbcType=CHAR},
+		#{IS_COSTING,jdbcType=CHAR}, #{UNIT_COST,jdbcType=DECIMAL},
+		#{IS_MRB,jdbcType=CHAR}, #{STATUS,jdbcType=CHAR},
+		#{IS_LIMIT,jdbcType=CHAR}, #{IS_SELL,jdbcType=CHAR},
+		#{IS_ABNORMAL,jdbcType=CHAR}, #{PRICE_PUH,jdbcType=DECIMAL},
+		#{PRICE_TRN,jdbcType=DECIMAL}, #{PRICE_TRADE,jdbcType=DECIMAL},
+		#{PRICE_RETAIL,jdbcType=DECIMAL}, #{PRICE_REBATE,jdbcType=DECIMAL},
+		#{SALE_BEGIN_DATE,jdbcType=CHAR}, #{SALE_END_DATE,jdbcType=CHAR},
+		#{CA_SPEC,jdbcType=CHAR}, #{ITEM_STATUS,jdbcType=CHAR},
+		#{IF_UNSALABLE,jdbcType=CHAR}, #{SPEC_LEVEL,jdbcType=CHAR},
+		#{SPEC_RISK,jdbcType=CHAR}, #{SUPPLY_TYPE,jdbcType=CHAR},
+		#{ENOUGH_STATUS_OTHER,jdbcType=CHAR}, #{IS_ALLOW_CUSTSUB,jdbcType=CHAR},
+		#{NOTICE_DATE,jdbcType=VARCHAR}, #{EXIT_DATE,jdbcType=VARCHAR},
+		#{EXIT_DATE_END,jdbcType=VARCHAR}, #{EXIT_NOTE,jdbcType=VARCHAR},
+		#{INVTY_DATE,jdbcType=VARCHAR}, #{ITEM_TYPE1,jdbcType=VARCHAR},
+		#{ITEM_TYPE2,jdbcType=VARCHAR}, #{ITEM_TYPE3,jdbcType=VARCHAR},
+		#{ITEM_TYPE4,jdbcType=VARCHAR}, #{ITEM_TYPE5,jdbcType=VARCHAR},
+		#{SALE_T_SIZE,jdbcType=DECIMAL},#{MSG_ID,jdbcType=VARCHAR}
+		)
+     </insert>
+     
+     <!-- 取得一条商品明细，按照甘肃格式组织-->
+	<select id="getDslItemComByGS" parameterType="map" resultType="map">
+		SELECT PIC.COM_ID,PIC.ITEM_ID,PIC.UNIT_COST,PIC.BRAND_MANGER_ID
+            ,'' ABC,PIC.ITEM_TYPE1,PIC.ITEM_TYPE2,PIC.SHORT_CODE
+            ,'' BRD_TYPE,PIC.PLM_TYPE ITEM_KIND,PIC.CATEGORY_ID CATEGORY
+            ,PI.BRAND_ID,PI.BRDOWNER_ID MFR_ID,PIC.NET_DATE
+            ,PIC.IS_MRB,PIC.IS_COSTING,PIC.STATUS,'' IS_HUNDREDBRAND
+            ,'' IS_LOWEND,'' IS_RARE,'' IS_MATURE,'' DEAL_TYPE
+            ,PIC.TACTIC_TYPE ENOUGH_STATUS
+        FROM DSL_ITEM_COM PIC,(
+            SELECT B.ITEM_ID,B.BRAND_ID,B.BRDOWNER_ID,A.MSG_ID,
+                A.MSG_CREATE_TIME,DENSE_RANK () OVER(ORDER BY MSG_CREATE_TIME DESC) XH 
+            FROM DSL_MSG A,DSL_ITEM B
+            WHERE A.MSG_ID=B.MSG_ID 
+            AND B.ITEM_ID=#{ITEM_ID} 
+            AND A.MSG_TYPE='DSL_ITEM'
+        ) PI
+        WHERE PIC.ITEM_ID=PI.ITEM_ID AND PIC.ITEM_ID=#{ITEM_ID} 
+              AND PIC.COM_ID=#{COM_ID} AND PIC.MSG_ID=#{MSG_ID}
+              AND PI.XH=1
+	</select>
+	
+     <!-- 取得商品价格明细，按照甘肃格式组织-->
+	<select id="getDslItemPriByGS" parameterType="map" resultType="map">
+		SELECT COM_ID,ITEM_ID,PRICE_PUH,PRICE_TRN,PRICE_TRADE,PRICE_RETAIL ,PRICE_REBATE
+        FROM   DSL_ITEM_COM
+        WHERE ITEM_ID=#{ITEM_ID} 
+              AND COM_ID=#{COM_ID} AND MSG_ID=#{MSG_ID}
+	</select>
+	
+	<!--查询公司商品  -->
+	<select id="getPlmItemComByJS" parameterType="map" resultType="map">
+	SELECT COM_ID,ITEM_ID,BRAND_MANGER_ID,SHORT_CODE,TACTIC_TYPE
+        ,PLM_TYPE,CATEGORY_ID,PRICE_SEGMENT,NET_DATE,OUT_DATE
+        ,IS_COSTING,UNIT_COST,IS_MRB,STATUS,IS_LIMIT,IS_SELL
+        ,IS_ABNORMAL,PRICE_PUH,PRICE_TRN,PRICE_TRADE,PRICE_RETAIL
+        ,PRICE_REBATE,SALE_BEGIN_DATE,SALE_END_DATE,CA_SPEC
+        ,ITEM_STATUS,IF_UNSALABLE,SPEC_LEVEL
+        ,SPEC_RISK,SUPPLY_TYPE,ENOUGH_STATUS_OTHER
+        ,IS_ALLOW_CUSTSUB,NOTICE_DATE,EXIT_DATE,EXIT_DATE_END
+        ,EXIT_NOTE,INVTY_DATE,ITEM_TYPE1,ITEM_TYPE2
+        ,ITEM_TYPE3,ITEM_TYPE4,ITEM_TYPE5,SALE_T_SIZE, MSG_ID
+	FROM DSL_ITEM_COM
+	WHERE MSG_ID=#{MSG_ID}
+     </select>
+     <!--插入公司商品  -->
+	<insert id="insertPlmItemComToJS" parameterType="map">
+      INSERT INTO PLM_ITEM_COM (
+        COM_ID,ITEM_ID,BRAND_MANGER_ID,SHORT_CODE,TACTIC_TYPE
+        ,PLM_TYPE,CATEGORY_ID,PRICE_SEGMENT,NET_DATE,OUT_DATE
+        ,IS_COSTING,UNIT_COST,IS_MRB,STATUS,IS_LIMIT,IS_SELL
+        ,IS_ABNORMAL,PRICE_PUH,PRICE_TRN,PRICE_TRADE,PRICE_RETAIL
+        ,PRICE_REBATE,SALE_BEGIN_DATE,SALE_END_DATE,CA_SPEC
+        ,ITEM_STATUS,IF_UNSALABLE,SPEC_LEVEL,SPEC_RISK
+        ,SUPPLY_TYPE,ENOUGH_STATUS_OTHER,IS_ALLOW_CUSTSUB
+        ,NOTICE_DATE,EXIT_DATE,EXIT_DATE_END,EXIT_NOTE
+        ,INVTY_DATE,ITEM_TYPE1,ITEM_TYPE2,ITEM_TYPE3
+        ,ITEM_TYPE4,ITEM_TYPE5,SALE_T_SIZE,UPDATE_TIME)
+	VALUES (
+		#{COM_ID,jdbcType=VARCHAR}, #{ITEM_ID,jdbcType=VARCHAR},
+		#{BRAND_MANGER_ID,jdbcType=VARCHAR}, #{SHORT_CODE,jdbcType=VARCHAR},
+		#{TACTIC_TYPE,jdbcType=CHAR}, #{PLM_TYPE,jdbcType=CHAR},
+		#{CATEGORY_ID,jdbcType=VARCHAR}, #{PRICE_SEGMENT,jdbcType=VARCHAR},
+		#{NET_DATE,jdbcType=CHAR}, #{OUT_DATE,jdbcType=CHAR},
+		#{IS_COSTING,jdbcType=CHAR}, #{UNIT_COST,jdbcType=DECIMAL},
+		#{IS_MRB,jdbcType=CHAR}, #{STATUS,jdbcType=CHAR},
+		#{IS_LIMIT,jdbcType=CHAR}, #{IS_SELL,jdbcType=CHAR},
+		#{IS_ABNORMAL,jdbcType=CHAR}, #{PRICE_PUH,jdbcType=DECIMAL},
+		#{PRICE_TRN,jdbcType=DECIMAL}, #{PRICE_TRADE,jdbcType=DECIMAL},
+		#{PRICE_RETAIL,jdbcType=DECIMAL}, #{PRICE_REBATE,jdbcType=DECIMAL},
+		#{SALE_BEGIN_DATE,jdbcType=CHAR}, #{SALE_END_DATE,jdbcType=CHAR},
+		#{CA_SPEC,jdbcType=CHAR}, #{ITEM_STATUS,jdbcType=CHAR},
+		#{IF_UNSALABLE,jdbcType=CHAR}, #{SPEC_LEVEL,jdbcType=CHAR},
+		#{SPEC_RISK,jdbcType=CHAR}, #{SUPPLY_TYPE,jdbcType=CHAR},
+		#{ENOUGH_STATUS_OTHER,jdbcType=CHAR}, #{IS_ALLOW_CUSTSUB,jdbcType=CHAR},
+		#{NOTICE_DATE,jdbcType=VARCHAR}, #{EXIT_DATE,jdbcType=VARCHAR},
+		#{EXIT_DATE_END,jdbcType=VARCHAR}, #{EXIT_NOTE,jdbcType=VARCHAR},
+		#{INVTY_DATE,jdbcType=VARCHAR}, #{ITEM_TYPE1,jdbcType=VARCHAR},
+		#{ITEM_TYPE2,jdbcType=VARCHAR}, #{ITEM_TYPE3,jdbcType=VARCHAR},
+		#{ITEM_TYPE4,jdbcType=VARCHAR}, #{ITEM_TYPE5,jdbcType=VARCHAR},
+		#{SALE_T_SIZE,jdbcType=DECIMAL},
+		<choose>
+		<when test="_databaseId==hana">
+			CURRENT_TIMESTAMP
+		</when>
+		<when test="_databaseId==db2">
+			CURRENT TIMESTAMP
+		</when>
+		<otherwise>
+			CAST (sysdate AS TIMESTAMP )
+		</otherwise>
+		</choose>
+		)
+     </insert>
+      <!--修改公司商品  -->
+	<update id="updPlmItemComToJS" parameterType="map">
+      UPDATE PLM_ITEM_COM SET 
+        BRAND_MANGER_ID=#{BRAND_MANGER_ID,jdbcType=VARCHAR},SHORT_CODE=#{SHORT_CODE,jdbcType=VARCHAR},
+        TACTIC_TYPE=#{TACTIC_TYPE,jdbcType=CHAR},PLM_TYPE=#{PLM_TYPE,jdbcType=CHAR},
+        CATEGORY_ID=#{CATEGORY_ID,jdbcType=VARCHAR},PRICE_SEGMENT=#{PRICE_SEGMENT,jdbcType=VARCHAR},
+        NET_DATE=#{NET_DATE,jdbcType=CHAR},OUT_DATE=#{OUT_DATE,jdbcType=CHAR},
+        IS_COSTING=#{IS_COSTING,jdbcType=CHAR},UNIT_COST=#{UNIT_COST,jdbcType=DECIMAL},
+        IS_MRB=#{IS_MRB,jdbcType=CHAR},STATUS=#{STATUS,jdbcType=CHAR},
+        IS_LIMIT=#{IS_LIMIT,jdbcType=CHAR},IS_SELL=#{IS_SELL,jdbcType=CHAR},
+        IS_ABNORMAL=#{IS_ABNORMAL,jdbcType=CHAR},PRICE_PUH=#{PRICE_PUH,jdbcType=DECIMAL},
+        PRICE_TRN=#{PRICE_TRN,jdbcType=DECIMAL},PRICE_TRADE=#{PRICE_TRADE,jdbcType=DECIMAL},
+        PRICE_RETAIL=#{PRICE_RETAIL,jdbcType=DECIMAL},PRICE_REBATE=#{PRICE_REBATE,jdbcType=DECIMAL},
+        SALE_BEGIN_DATE=#{SALE_BEGIN_DATE,jdbcType=CHAR},SALE_END_DATE=#{SALE_END_DATE,jdbcType=CHAR},
+        CA_SPEC=#{CA_SPEC,jdbcType=CHAR},ITEM_STATUS=#{ITEM_STATUS,jdbcType=CHAR},
+        IF_UNSALABLE=#{IF_UNSALABLE,jdbcType=CHAR},SPEC_LEVEL=#{SPEC_LEVEL,jdbcType=CHAR},
+        SPEC_RISK=#{SPEC_RISK,jdbcType=CHAR},SUPPLY_TYPE=#{SUPPLY_TYPE,jdbcType=CHAR},
+        ENOUGH_STATUS_OTHER=#{ENOUGH_STATUS_OTHER,jdbcType=CHAR},IS_ALLOW_CUSTSUB=#{IS_ALLOW_CUSTSUB,jdbcType=CHAR},
+        NOTICE_DATE=#{NOTICE_DATE,jdbcType=CHAR},EXIT_DATE=#{EXIT_DATE,jdbcType=CHAR},
+        EXIT_DATE_END=#{EXIT_DATE_END,jdbcType=CHAR},EXIT_NOTE=#{EXIT_NOTE,jdbcType=VARCHAR},
+        INVTY_DATE=#{INVTY_DATE,jdbcType=CHAR},ITEM_TYPE1=#{ITEM_TYPE1,jdbcType=VARCHAR},
+        ITEM_TYPE2=#{ITEM_TYPE2,jdbcType=VARCHAR},ITEM_TYPE3=#{ITEM_TYPE3,jdbcType=VARCHAR},
+        ITEM_TYPE4=#{ITEM_TYPE4,jdbcType=VARCHAR},ITEM_TYPE5=#{ITEM_TYPE5,jdbcType=VARCHAR},
+        SALE_T_SIZE=#{SALE_T_SIZE,jdbcType=DECIMAL},
+		<choose>
+		<when test="_databaseId==hana">
+			UPDATE_TIME=CURRENT_TIMESTAMP
+		</when>
+		<when test="_databaseId==db2">
+			UPDATE_TIME=CURRENT TIMESTAMP
+		</when>
+		<otherwise>
+			UPDATE_TIME=CAST (sysdate AS TIMESTAMP)
+		</otherwise>
+		</choose>
+        WHERE COM_ID=#{COM_ID} AND ITEM_ID=#{ITEM_ID} 
+     </update>
+    
+</mapper>

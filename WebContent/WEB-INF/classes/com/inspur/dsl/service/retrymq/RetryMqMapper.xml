@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inspur.dsl.service.retrymq.RetryMqMapper">
+     <select id="findAllList" parameterType="map" resultType="map">
+         SELECT * FROM  DSL_PROCESS_LOG WHERE LOG_RESULT=#{MSG_ID}
+     </select>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0"	encoding="gb2312" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../V6_Schema.xsl"?>
+<!DOCTYPE app-data SYSTEM "../V6_Schema.dtd"> 
+<app-data>
+	<database id="TD" name="交易数据库" schema="V6ADMIN">
+		<subsystem id="DSL">				
+			<module	id="DSL">
+				<submodule id="DSL" name="主数据中间层">
+				     <table id="DSL_CUST_RM" name="零售户信息(专卖相关)" pkg="com.inspur" jspPath="*" tsp="TD_DATACENTER" idxtsp="TD_OTHER_IDX" compress="否" partition="否" volume="万" period="全部" notlog="否">
+							<rem> ==================================================================== 	</rem>
+							<rem> 输入人:栗超      输入时间:2016年05月09日                           	                                </rem>
+							<rem> ==================================================================== 	</rem>
+							<column id="APPLY_NUM" primaryKey="true" required="true" type="VARCHAR" size="30" name="申请编码"/>
+				      </table>
+			     </submodule>
+			</module> 
+		</subsystem>
+	</database>
+</app-data>

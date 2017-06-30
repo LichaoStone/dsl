@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inspur.receivesend.rocketmq.syncVend.SyncVendMapper">
+     <insert id="insertDslVend" parameterType="map">
+      INSERT INTO DSL_VEND(
+        MSG_ID,COM_IDS,
+		VEND_ID,
+		VEND_NAME,
+		SHORT_NAME,
+		PARENT_ID,
+		VEND_TYPE,
+		CONTR_NAME,
+		PRO_NUM,
+		STANDARD_CODE,
+		<if test="AMT_COUNTRY != null and AMT_COUNTRY !=''">
+		AMT_COUNTRY,
+		</if>
+		<if test="AMT_YEAR != null and AMT_YEAR !=''">
+		AMT_YEAR,
+		</if>
+		<if test="YEAR_TAX != null and YEAR_TAX !=''">
+		YEAR_TAX,
+		</if>
+		IS_IMPORTANT,
+		CORPORATION,
+		SALE_MANAGER,
+		ORD_CONT,
+		OP_LEADER,
+		OP_CONT,
+		FIN_CONT,
+		ACC_CONT,
+		CANT_ID,
+		POSTCODE,
+		ADDR,
+		TEL,
+		NIGHT_TEL,
+		FAX,
+		EMAIL,
+		HOMEPAGE,
+		NOTE,
+		OLD_VEND_ID,
+		PRODUCER,
+		ACCOUNT_BANK,
+		ACCOUNT,
+		TAXPAYER_ID,
+		GB_CODE,
+		PAY_TYPE,
+		LAST_ORDERDATE,
+		LAST_PAYDATE,
+		RAIL1_STATION,
+		RAIL1_DAY,
+		RAIL_STATION2,
+		RAIL2_DAY,
+		CONTAINER_STATION,
+		CONTAINER_DAY,
+		AIRPORT,
+		AIR_DAY,
+		TRUCK_STATION,
+		TRUCK_DAY,
+		PRE_DAY,
+		TRANS_TYPE,
+		VEND_STATUS,
+		IS_MRB,
+		INDUSTRY_ID,
+		INDUSTRY_NAME) 
+		 VALUES (
+		#{MSG_ID,jdbcType=VARCHAR},
+		#{COM_IDS,jdbcType=VARCHAR},
+		#{VEND_ID,jdbcType=VARCHAR},
+		#{VEND_NAME,jdbcType=VARCHAR},
+		#{SHORT_NAME,jdbcType=VARCHAR},
+		#{PARENT_ID,jdbcType=VARCHAR},
+		#{VEND_TYPE,jdbcType=VARCHAR},
+		#{CONTR_NAME,jdbcType=VARCHAR},
+		#{PRO_NUM,jdbcType=VARCHAR},
+		#{STANDARD_CODE,jdbcType=VARCHAR},
+		<if test="AMT_COUNTRY != null and AMT_COUNTRY !=''">
+		#{AMT_COUNTRY,jdbcType=DECIMAL},
+		</if>
+		<if test="AMT_YEAR != null and AMT_YEAR !=''">
+		#{AMT_YEAR,jdbcType=DECIMAL},
+		</if>
+		<if test="YEAR_TAX != null and YEAR_TAX !=''">
+		#{YEAR_TAX,jdbcType=DECIMAL},
+		</if>
+		#{IS_IMPORTANT,jdbcType=VARCHAR},
+		#{CORPORATION,jdbcType=VARCHAR},
+		#{SALE_MANAGER,jdbcType=VARCHAR},
+		#{ORD_CONT,jdbcType=VARCHAR},
+		#{OP_LEADER,jdbcType=VARCHAR},
+		#{OP_CONT,jdbcType=VARCHAR},
+		#{FIN_CONT,jdbcType=VARCHAR},
+		#{ACC_CONT,jdbcType=VARCHAR},
+		#{CANT_ID,jdbcType=VARCHAR},
+		#{POSTCODE,jdbcType=CHAR},
+		#{ADDR,jdbcType=VARCHAR},
+		#{TEL,jdbcType=VARCHAR},
+		#{NIGHT_TEL,jdbcType=VARCHAR},
+		#{FAX,jdbcType=VARCHAR},
+		#{EMAIL,jdbcType=VARCHAR},
+		#{HOMEPAGE,jdbcType=VARCHAR},
+		#{NOTE,jdbcType=VARCHAR},
+		#{OLD_VEND_ID,jdbcType=VARCHAR},
+		#{PRODUCER,jdbcType=VARCHAR},
+		#{ACCOUNT_BANK,jdbcType=VARCHAR},
+		#{ACCOUNT,jdbcType=VARCHAR},
+		#{TAXPAYER_ID,jdbcType=VARCHAR},
+		#{GB_CODE,jdbcType=VARCHAR},
+		#{PAY_TYPE,jdbcType=CHAR},
+		#{LAST_ORDERDATE,jdbcType=CHAR},
+		#{LAST_PAYDATE,jdbcType=CHAR},
+		#{RAIL1_STATION,jdbcType=VARCHAR},
+		#{RAIL1_DAY,jdbcType=INTEGER},
+		#{RAIL_STATION2,jdbcType=VARCHAR},
+		#{RAIL2_DAY,jdbcType=INTEGER},
+		#{CONTAINER_STATION,jdbcType=VARCHAR},
+		#{CONTAINER_DAY,jdbcType=INTEGER},
+		#{AIRPORT,jdbcType=VARCHAR},
+		#{AIR_DAY,jdbcType=INTEGER},
+		#{TRUCK_STATION,jdbcType=VARCHAR},
+		#{TRUCK_DAY,jdbcType=INTEGER},
+		#{PRE_DAY,jdbcType=INTEGER},
+		#{TRANS_TYPE,jdbcType=CHAR},
+		#{VEND_STATUS,jdbcType=CHAR},
+		#{IS_MRB,jdbcType=CHAR},
+		#{INDUSTRY_ID,jdbcType=VARCHAR},
+		#{INDUSTRY_NAME,jdbcType=VARCHAR})
+     </insert>
+     
+     <!-- 取得一条商品明细，按照甘肃格式组织-->
+	<select id="getDslVendByGS" parameterType="map" resultType="map">
+		SELECT VEND_ID,VEND_ID VEND_CODE,VEND_NAME,SHORT_NAME
+            ,VEND_TYPE,CONTR_NAME,PRO_NUM,AMT_COUNTRY
+            ,AMT_YEAR,YEAR_TAX,IS_IMPORTANT,CORPORATION
+            ,SALE_MANAGER,ORD_CONT,OP_LEADER,OP_CONT
+            ,FIN_CONT,ACC_CONT,CANT_ID,POSTCODE,ADDR
+            ,TEL,NIGHT_TEL,FAX,EMAIL,HOMEPAGE,NOTE
+            ,OLD_VEND_ID,PRODUCER,ACCOUNT_BANK
+            ,ACCOUNT,TAXPAYER_ID,GB_CODE,PAY_TYPE
+            ,LAST_ORDERDATE,LAST_PAYDATE,RAIL1_STATION RAIL_STATION1
+            ,RAIL1_DAY,RAIL_STATION2,RAIL2_DAY,CONTAINER_STATION
+            ,CONTAINER_DAY,AIRPORT,AIR_DAY,TRUCK_STATION
+            ,TRUCK_DAY,PRE_DAY,TRANS_TYPE,STANDARD_CODE
+            ,VEND_STATUS,'' PARENT_ID,IS_MRB
+        FROM DSL_VEND 
+        WHERE VEND_ID=#{VEND_ID} AND MSG_ID=#{MSG_ID}
+	</select>
+	
+	<!--查询品牌  -->
+	<select id="getVendByJS" parameterType="map" resultType="map">
+	SELECT VEND_ID, VEND_NAME, SHORT_NAME, PARENT_ID, VEND_TYPE,
+		CONTR_NAME, PRO_NUM, STANDARD_CODE, AMT_COUNTRY,
+		AMT_YEAR, YEAR_TAX, IS_IMPORTANT, CORPORATION,
+		SALE_MANAGER, ORD_CONT, OP_LEADER, OP_CONT, FIN_CONT,
+		ACC_CONT, CANT_ID, POSTCODE, ADDR, TEL, NIGHT_TEL,
+		FAX, EMAIL, HOMEPAGE, NOTE, OLD_VEND_ID, PRODUCER,
+		ACCOUNT_BANK, ACCOUNT, TAXPAYER_ID, GB_CODE, PAY_TYPE,
+		LAST_ORDERDATE, LAST_PAYDATE, RAIL1_STATION, RAIL1_DAY,
+		RAIL_STATION2, RAIL2_DAY, CONTAINER_STATION, CONTAINER_DAY,
+		AIRPORT, AIR_DAY, TRUCK_STATION, TRUCK_DAY, PRE_DAY,
+		TRANS_TYPE, VEND_STATUS, IS_MRB, INDUSTRY_ID, INDUSTRY_NAME
+	FROM DSL_VEND
+	WHERE MSG_ID=#{MSG_ID}
+     </select>
+     <!--插入品牌  -->
+	<insert id="insertVendToJS" parameterType="map">
+      INSERT INTO PI_VEND (
+         VEND_ID,
+		VEND_NAME,
+		SHORT_NAME,
+		PARENT_ID,
+		VEND_TYPE,
+		CONTR_NAME,
+		PRO_NUM,
+		STANDARD_CODE,
+		<if test="AMT_COUNTRY != null and AMT_COUNTRY !=''">
+		AMT_COUNTRY,
+		</if>
+		<if test="AMT_YEAR != null and AMT_YEAR !=''">
+		AMT_YEAR,
+		</if>
+		<if test="YEAR_TAX != null and YEAR_TAX !=''">
+		YEAR_TAX,
+		</if>
+		IS_IMPORTANT,
+		CORPORATION,
+		SALE_MANAGER,
+		ORD_CONT,
+		OP_LEADER,
+		OP_CONT,
+		FIN_CONT,
+		ACC_CONT,
+		CANT_ID,
+		POSTCODE,
+		ADDR,
+		TEL,
+		NIGHT_TEL,
+		FAX,
+		EMAIL,
+		HOMEPAGE,
+		NOTE,
+		OLD_VEND_ID,
+		PRODUCER,
+		ACCOUNT_BANK,
+		ACCOUNT,
+		TAXPAYER_ID,
+		GB_CODE,
+		PAY_TYPE,
+		LAST_ORDERDATE,
+		LAST_PAYDATE,
+		RAIL1_STATION,
+		RAIL1_DAY,
+		RAIL_STATION2,
+		RAIL2_DAY,
+		CONTAINER_STATION,
+		CONTAINER_DAY,
+		AIRPORT,
+		AIR_DAY,
+		TRUCK_STATION,
+		TRUCK_DAY,
+		PRE_DAY,
+		TRANS_TYPE,
+		VEND_STATUS,
+		IS_MRB,
+		INDUSTRY_ID,
+		INDUSTRY_NAME) 
+		 VALUES (
+		#{VEND_ID,jdbcType=VARCHAR},
+		#{VEND_NAME,jdbcType=VARCHAR},
+		#{SHORT_NAME,jdbcType=VARCHAR},
+		#{PARENT_ID,jdbcType=VARCHAR},
+		#{VEND_TYPE,jdbcType=VARCHAR},
+		#{CONTR_NAME,jdbcType=VARCHAR},
+		#{PRO_NUM,jdbcType=VARCHAR},
+		#{STANDARD_CODE,jdbcType=VARCHAR},
+		<if test="AMT_COUNTRY != null and AMT_COUNTRY !=''">
+		#{AMT_COUNTRY,jdbcType=DECIMAL},
+		</if>
+		<if test="AMT_YEAR != null and AMT_YEAR !=''">
+		#{AMT_YEAR,jdbcType=DECIMAL},
+		</if>
+		<if test="YEAR_TAX != null and YEAR_TAX !=''">
+		#{YEAR_TAX,jdbcType=DECIMAL},
+		</if>
+		#{IS_IMPORTANT,jdbcType=VARCHAR},
+		#{CORPORATION,jdbcType=VARCHAR},
+		#{SALE_MANAGER,jdbcType=VARCHAR},
+		#{ORD_CONT,jdbcType=VARCHAR},
+		#{OP_LEADER,jdbcType=VARCHAR},
+		#{OP_CONT,jdbcType=VARCHAR},
+		#{FIN_CONT,jdbcType=VARCHAR},
+		#{ACC_CONT,jdbcType=VARCHAR},
+		#{CANT_ID,jdbcType=VARCHAR},
+		#{POSTCODE,jdbcType=CHAR},
+		#{ADDR,jdbcType=VARCHAR},
+		#{TEL,jdbcType=VARCHAR},
+		#{NIGHT_TEL,jdbcType=VARCHAR},
+		#{FAX,jdbcType=VARCHAR},
+		#{EMAIL,jdbcType=VARCHAR},
+		#{HOMEPAGE,jdbcType=VARCHAR},
+		#{NOTE,jdbcType=VARCHAR},
+		#{OLD_VEND_ID,jdbcType=VARCHAR},
+		#{PRODUCER,jdbcType=VARCHAR},
+		#{ACCOUNT_BANK,jdbcType=VARCHAR},
+		#{ACCOUNT,jdbcType=VARCHAR},
+		#{TAXPAYER_ID,jdbcType=VARCHAR},
+		#{GB_CODE,jdbcType=VARCHAR},
+		#{PAY_TYPE,jdbcType=CHAR},
+		#{LAST_ORDERDATE,jdbcType=CHAR},
+		#{LAST_PAYDATE,jdbcType=CHAR},
+		#{RAIL1_STATION,jdbcType=VARCHAR},
+		#{RAIL1_DAY,jdbcType=INTEGER},
+		#{RAIL_STATION2,jdbcType=VARCHAR},
+		#{RAIL2_DAY,jdbcType=INTEGER},
+		#{CONTAINER_STATION,jdbcType=VARCHAR},
+		#{CONTAINER_DAY,jdbcType=INTEGER},
+		#{AIRPORT,jdbcType=VARCHAR},
+		#{AIR_DAY,jdbcType=INTEGER},
+		#{TRUCK_STATION,jdbcType=VARCHAR},
+		#{TRUCK_DAY,jdbcType=INTEGER},
+		#{PRE_DAY,jdbcType=INTEGER},
+		#{TRANS_TYPE,jdbcType=CHAR},
+		#{VEND_STATUS,jdbcType=CHAR},
+		#{IS_MRB,jdbcType=CHAR},
+		#{INDUSTRY_ID,jdbcType=VARCHAR},
+		#{INDUSTRY_NAME,jdbcType=VARCHAR})
+     </insert>
+      <!--修改品牌  -->
+	<update id="updVendToJS" parameterType="map">
+      UPDATE PI_VEND SET
+		VEND_NAME=#{VEND_NAME,jdbcType=VARCHAR},
+		SHORT_NAME=#{SHORT_NAME,jdbcType=VARCHAR},
+		PARENT_ID=#{PARENT_ID,jdbcType=VARCHAR},
+		VEND_TYPE=#{VEND_TYPE,jdbcType=VARCHAR},
+		CONTR_NAME=#{CONTR_NAME,jdbcType=VARCHAR},
+		PRO_NUM=#{PRO_NUM,jdbcType=VARCHAR},
+		STANDARD_CODE=#{STANDARD_CODE,jdbcType=VARCHAR},
+		<if test="AMT_COUNTRY != null and AMT_COUNTRY !=''">
+		AMT_COUNTRY=#{AMT_COUNTRY,jdbcType=DECIMAL},
+		</if>
+		<if test="AMT_YEAR != null and AMT_YEAR !=''">
+		AMT_YEAR=#{AMT_YEAR,jdbcType=DECIMAL},
+		</if>
+		<if test="YEAR_TAX != null and YEAR_TAX !=''">
+		YEAR_TAX=#{YEAR_TAX,jdbcType=DECIMAL},
+		</if>
+		IS_IMPORTANT=#{IS_IMPORTANT,jdbcType=VARCHAR},
+		CORPORATION=#{CORPORATION,jdbcType=VARCHAR},
+		SALE_MANAGER=#{SALE_MANAGER,jdbcType=VARCHAR},
+		ORD_CONT=#{ORD_CONT,jdbcType=VARCHAR},
+		OP_LEADER=#{OP_LEADER,jdbcType=VARCHAR},
+		OP_CONT=#{OP_CONT,jdbcType=VARCHAR},
+		FIN_CONT=#{FIN_CONT,jdbcType=VARCHAR},
+		ACC_CONT=#{ACC_CONT,jdbcType=VARCHAR},
+		CANT_ID=#{CANT_ID,jdbcType=VARCHAR},
+		POSTCODE=#{POSTCODE,jdbcType=CHAR},
+		ADDR=#{ADDR,jdbcType=VARCHAR},
+		TEL=#{TEL,jdbcType=VARCHAR},
+		NIGHT_TEL=#{NIGHT_TEL,jdbcType=VARCHAR},
+		FAX=#{FAX,jdbcType=VARCHAR},
+		EMAIL=#{EMAIL,jdbcType=VARCHAR},
+		HOMEPAGE=#{HOMEPAGE,jdbcType=VARCHAR},
+		NOTE=#{NOTE,jdbcType=VARCHAR},
+		OLD_VEND_ID=#{OLD_VEND_ID,jdbcType=VARCHAR},
+		PRODUCER=#{PRODUCER,jdbcType=VARCHAR},
+		ACCOUNT_BANK=#{ACCOUNT_BANK,jdbcType=VARCHAR},
+		ACCOUNT=#{ACCOUNT,jdbcType=VARCHAR},
+		TAXPAYER_ID=#{TAXPAYER_ID,jdbcType=VARCHAR},
+		GB_CODE=#{GB_CODE,jdbcType=VARCHAR},
+		PAY_TYPE=#{PAY_TYPE,jdbcType=CHAR},
+		LAST_ORDERDATE=#{LAST_ORDERDATE,jdbcType=CHAR},
+		LAST_PAYDATE=#{LAST_PAYDATE,jdbcType=CHAR},
+		RAIL1_STATION=#{RAIL1_STATION,jdbcType=VARCHAR},
+		<if test="RAIL1_DAY != null and RAIL1_DAY !=''">
+			RAIL1_DAY=#{RAIL1_DAY,jdbcType=INTEGER},
+		</if>
+		RAIL_STATION2=#{RAIL_STATION2,jdbcType=VARCHAR},
+		<if test="RAIL2_DAY != null and RAIL2_DAY !=''">
+			RAIL2_DAY=#{RAIL2_DAY,jdbcType=INTEGER},
+		</if>
+		CONTAINER_STATION=#{CONTAINER_STATION,jdbcType=VARCHAR},
+		<if test="CONTAINER_DAY != null and CONTAINER_DAY !=''">
+			CONTAINER_DAY=#{CONTAINER_DAY,jdbcType=INTEGER},
+		</if>
+		AIRPORT=#{AIRPORT,jdbcType=VARCHAR},
+		<if test="AIR_DAY != null and AIR_DAY !=''">
+			AIR_DAY=#{AIR_DAY,jdbcType=INTEGER},
+		</if>
+		TRUCK_STATION=#{TRUCK_STATION,jdbcType=VARCHAR},
+		<if test="TRUCK_DAY != null and TRUCK_DAY !=''">
+			TRUCK_DAY=#{TRUCK_DAY,jdbcType=INTEGER},
+		</if>
+		<if test="PRE_DAY != null and PRE_DAY !=''">
+			PRE_DAY=#{PRE_DAY,jdbcType=INTEGER},
+		</if>
+		TRANS_TYPE=#{TRANS_TYPE,jdbcType=CHAR},
+		VEND_STATUS=#{VEND_STATUS,jdbcType=CHAR},
+		IS_MRB=#{IS_MRB,jdbcType=CHAR},
+		INDUSTRY_ID=#{INDUSTRY_ID,jdbcType=VARCHAR},
+		INDUSTRY_NAME=#{INDUSTRY_NAME,jdbcType=VARCHAR}
+		WHERE  VEND_ID=#{VEND_ID}  
+     </update>
+
+</mapper>

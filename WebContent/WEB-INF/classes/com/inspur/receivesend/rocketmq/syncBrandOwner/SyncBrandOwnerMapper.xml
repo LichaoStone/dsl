@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inspur.receivesend.rocketmq.syncBrandOwner.SyncBrandOwnerMapper">
+     <insert id="insertDslBrandOwner" parameterType="map">
+      INSERT INTO DSL_BRANDOWNER (
+        BRDOWNER_ID,BRDOWNER_NAME,ADDR
+        ,SHORT_NAME,OWNER_MRB,NOTE, MSG_ID
+		)
+		VALUES (
+		#{BRDOWNER_ID,jdbcType=VARCHAR}, #{BRDOWNER_NAME,jdbcType=VARCHAR},
+		#{ADDR,jdbcType=VARCHAR}, #{SHORT_NAME,jdbcType=VARCHAR},
+		#{OWNER_MRB,jdbcType=VARCHAR},#{NOTE,jdbcType=VARCHAR},
+		#{MSG_ID,jdbcType=VARCHAR}
+		)
+     </insert>
+     
+     <!-- 取得一条品牌拥有者，按照甘肃格式组织-->
+	<select id="getDslBrandOwnerByGS" parameterType="map" resultType="map">
+		SELECT BRDOWNER_ID MFR_ID,BRDOWNER_NAME MFR_NAME
+            ,ADDR,SHORT_NAME,'' CANT_ID,'' MAN,'' ZIP
+            ,'' ACOUNT,'' BANK_NAME,'' MASTER,'' PHONE
+            ,NOTE,CASE WHEN OWNER_MRB='1' THEN '01' ELSE '02' END MANU_STATUS,'' IS_KEY_MFR
+        FROM DSL_BRANDOWNER 
+        WHERE BRDOWNER_ID=#{BRDOWNER_ID} AND MSG_ID=#{MSG_ID}
+	</select>
+	
+	<!--查询品牌  -->
+	<select id="getBrdOwnerByJS" parameterType="map" resultType="map">
+	SELECT  BRDOWNER_ID,BRDOWNER_NAME,ADDR
+        ,SHORT_NAME,OWNER_MRB,NOTE
+	FROM DSL_BRANDOWNER
+	WHERE MSG_ID=#{MSG_ID}
+     </select>
+     <!--插入品牌  -->
+	<insert id="insertBrdOwnerToJS" parameterType="map">
+      INSERT INTO PLM_BRANDOWNER (
+         BRDOWNER_ID,BRDOWNER_NAME,ADDR
+        ,SHORT_NAME,OWNER_MRB,NOTE)
+	VALUES (
+		#{BRDOWNER_ID,jdbcType=VARCHAR}, #{BRDOWNER_NAME,jdbcType=VARCHAR},
+		#{ADDR,jdbcType=VARCHAR}, #{SHORT_NAME,jdbcType=VARCHAR},
+		#{OWNER_MRB,jdbcType=CHAR}, #{NOTE,jdbcType=VARCHAR}
+		)
+     </insert>
+      <!--修改品牌  -->
+	<update id="updBrdOwnerToJS" parameterType="map">
+      UPDATE PLM_BRANDOWNER SET 
+          BRDOWNER_NAME=#{BRDOWNER_NAME,jdbcType=VARCHAR},
+          ADDR=#{ADDR,jdbcType=VARCHAR},
+          SHORT_NAME=#{SHORT_NAME,jdbcType=VARCHAR},
+          NOTE=#{NOTE,jdbcType=VARCHAR},
+          OWNER_MRB=#{OWNER_MRB,jdbcType=CHAR}
+      WHERE BRDOWNER_ID=#{BRDOWNER_ID} 
+     </update>
+	<delete id="delBrdOwnerToJS" parameterType="map">
+		DELETE FROM PLM_BRANDOWNER WHERE BRDOWNER_ID=#{BRDOWNER_ID}
+	</delete>
+
+</mapper>

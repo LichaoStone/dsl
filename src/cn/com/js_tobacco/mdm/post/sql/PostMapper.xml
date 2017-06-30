@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.js_tobacco.mdm.post.sql.PostMapper">
+    <insert id="insertPost" parameterType="map" >
+        INSERT INTO MD_POST(
+        CODE,
+        NAME,
+        ASSIGNEDJOBTYPE,
+        GRADE,
+        PARENT_CODE,
+        RESPONSIBILITIES,
+        JOBOCCUPATIONS,
+        STATUS) 
+        VALUES (
+        #{code, jdbcType=VARCHAR},
+        #{name, jdbcType=VARCHAR},
+        #{assignedjobtype, jdbcType=VARCHAR},
+        #{grade, jdbcType=VARCHAR},
+        #{parentcode, jdbcType=VARCHAR},
+        #{responsibilities, jdbcType=VARCHAR},
+        #{joboccupations, jdbcType=VARCHAR},
+        #{status, jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updatePost"  parameterType="map">
+        UPDATE MD_POST SET
+        CODE = #{code, jdbcType=VARCHAR},
+        NAME = #{name, jdbcType=VARCHAR},
+        ASSIGNEDJOBTYPE = #{assignedjobtype, jdbcType=VARCHAR},
+        GRADE = #{grade, jdbcType=VARCHAR},
+        PARENT_CODE = #{parentcode, jdbcType=VARCHAR},
+        RESPONSIBILITIES = #{responsibilities, jdbcType=VARCHAR},
+        JOBOCCUPATIONS = #{joboccupations, jdbcType=VARCHAR},
+        STATUS = #{status, jdbcType=VARCHAR}
+        WHERE  CODE = #{code}
+    </update>
+
+    <select id="getPost" parameterType="map" resultType="map" >
+        SELECT * FROM MD_POST
+        <where>
+            <if test="CODE != null">
+                CODE = #{code}
+            </if>
+        </where>                
+    </select>
+    
+    <delete id="deletePost" parameterType="map">
+        UPDATE MD_POST SET
+        STATUS = #{status, jdbcType=VARCHAR}
+        WHERE  CODE = #{code}
+    </delete>
+
+</mapper>

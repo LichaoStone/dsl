@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inspur.receivesend.rocketmq.syncBrand.SyncBrandMapper">
+     <insert id="insertDslBrand" parameterType="map">
+      INSERT INTO DSL_BRAND (
+        BRAND_ID,BRAND_NAME,BRDOWNER_ID,
+        IS_KEY_BRD,NOTE,BRAND_MRB, MSG_ID
+		)
+		VALUES (
+		#{BRAND_ID,jdbcType=VARCHAR}, #{BRAND_NAME,jdbcType=VARCHAR},
+		#{BRDOWNER_ID,jdbcType=VARCHAR}, #{IS_KEY_BRD,jdbcType=CHAR},
+		#{NOTE,jdbcType=VARCHAR}, #{BRAND_MRB,jdbcType=VARCHAR},
+		#{MSG_ID,jdbcType=VARCHAR}
+		)
+     </insert>
+     
+     <!-- 取得一条商品明细，按照甘肃格式组织-->
+	<select id="getDslBrandByGS" parameterType="map" resultType="map">
+		SELECT BRAND_ID,BRAND_NAME,NOTE,BRDOWNER_ID MFR_ID
+            ,'' IS_HUNDREDBRAND,'' HUNDRED_NUM
+            ,'' BRD_KIND,CASE WHEN BRAND_MRB='1' THEN '01' ELSE '02' END BRAND_STATUS
+            ,IS_KEY_BRD MAIN_BRAND
+        FROM DSL_BRAND 
+        WHERE BRAND_ID=#{BRAND_ID} AND MSG_ID=#{MSG_ID}
+	</select>
+	
+	<!--查询品牌  -->
+	<select id="getPlmBrandByJS" parameterType="map" resultType="map">
+	SELECT  BRAND_ID,BRAND_NAME,BRDOWNER_ID,
+            IS_KEY_BRD,NOTE,BRAND_MRB
+	FROM DSL_BRAND
+	WHERE MSG_ID=#{MSG_ID}
+     </select>
+     <!--插入品牌  -->
+	<insert id="insertPlmBrandToJS" parameterType="map">
+      INSERT INTO PLM_BRAND (
+         BRAND_ID,BRAND_NAME,BRDOWNER_ID,
+         IS_KEY_BRD,NOTE,BRAND_MRB)
+	VALUES (
+		#{BRAND_ID,jdbcType=VARCHAR}, #{BRAND_NAME,jdbcType=VARCHAR},
+		#{BRDOWNER_ID,jdbcType=VARCHAR}, #{IS_KEY_BRD,jdbcType=CHAR},
+		#{NOTE,jdbcType=VARCHAR}, #{BRAND_MRB,jdbcType=CHAR}
+		)
+     </insert>
+      <!--修改品牌  -->
+	<update id="updPlmBrandToJS" parameterType="map">
+      UPDATE PLM_BRAND SET 
+          BRAND_NAME=#{BRAND_NAME,jdbcType=VARCHAR},
+          BRDOWNER_ID=#{BRDOWNER_ID,jdbcType=VARCHAR},
+          IS_KEY_BRD=#{IS_KEY_BRD,jdbcType=CHAR},
+          NOTE=#{NOTE,jdbcType=VARCHAR},
+          BRAND_MRB=#{BRAND_MRB,jdbcType=CHAR}
+      WHERE BRAND_ID=#{BRAND_ID} 
+     </update>
+	<delete id="delPlmBrandToJS" parameterType="map">
+		DELETE FROM PLM_BRAND WHERE  BRAND_ID=#{BRAND_ID}   		
+	</delete>
+
+</mapper>
